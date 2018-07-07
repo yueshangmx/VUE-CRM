@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <img src="../assets/logo.png" alt="">
     <Main msg="Welcome to Your CRM"/>
   </div>
 </template>
