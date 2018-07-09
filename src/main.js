@@ -15,3 +15,12 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount("#app");
+
+router.beforeEach((to, from, next) => {
+  let info = window.localStorage.getItem("info");
+  if (!info && to.path != "/login") {
+    next({ path: "/login" });
+  } else {
+    next();
+  }
+});

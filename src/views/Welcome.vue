@@ -1,5 +1,5 @@
 <template>
-  <div class="welcome" @click="goLogin">
+  <div class="welcome">
     <h2 class="content">
       <img class="logo" src="../assets/logo.png" alt="CRM">
       <p>欢迎使用CRM管理系统</p>
@@ -11,11 +11,11 @@
 <script>
 export default {
   name: "Welcome",
-  created() {},
-  methods: {
-    goLogin() {
-      this.$router.push({ path: "/home" });
-    }
+  created() {
+    let that = this;
+    setTimeout(function() {
+      that.$router.push({ path: "/home" });
+    }, 3000);
   }
 };
 </script>

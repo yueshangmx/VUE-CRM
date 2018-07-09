@@ -1,6 +1,19 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
+  <div class="main">
+    <ul>
+      <li>
+        <router-link to="/home/create">创建客户</router-link>
+      </li>
+      <li>
+        <router-link to="/home/management">客户管理</router-link>
+      </li>
+      <li>
+        <router-link to="/home/packet">卡包管理</router-link>
+      </li>
+      <li>
+        <router-link to="/home/all-clients">所有客户</router-link>
+      </li>
+    </ul>
   </div>
 </template>
 
