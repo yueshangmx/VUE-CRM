@@ -1,17 +1,20 @@
 <template>
   <div class="home">
     <nav class="nav-top">
-      <el-menu :default-active="activeIndex" class="el-menu" mode="horizontal" >
-        <el-menu-item index="1">用户头像</el-menu-item>
-        <el-submenu index="2">
+      <div class="user-img">
+        <img src="../assets/images/logo.png" alt="">
+      </div>
+      <el-menu class="el-menu" mode="horizontal" >
+        <el-submenu index="1">
           <template slot="title">登录账户：admin</template>
-          <el-menu-item index="2-1">个人中心</el-menu-item>
-          <el-menu-item index="2-2">修改密码</el-menu-item>
-          <el-menu-item index="2-3">退出登录</el-menu-item>
+          <el-menu-item index="1-1">个人中心</el-menu-item>
+          <el-menu-item index="1-2">修改密码</el-menu-item>
+          <el-menu-item index="1-3">退出登录</el-menu-item>
         </el-submenu>
-        <el-menu-item index="3">二维码</el-menu-item>
       </el-menu>
-      <div class="line"></div>
+      <div class="qcode">
+        <i class="iconfont icon-code"></i>
+      </div>
     </nav>
     <Main />
     <div class="nav-bottom">
@@ -35,6 +38,27 @@ export default {
 
 <style lang="less">
 .home {
+  .nav-top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    border-bottom: solid 1px #e6e6e6;
+    .user-img {
+      img {
+        height: 60px;
+      }
+    }
+    ul {
+      border-bottom: 0;
+    }
+    .qcode {
+      .iconfont {
+        font-size: 30px;
+      }
+    }
+  }
   img {
     max-width: 100%;
   }

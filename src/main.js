@@ -5,6 +5,7 @@ import store from "./store";
 import axios from "axios";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
+import "./assets/css/iconfont/iconfont.css";
 
 Vue.use(ElementUI);
 Vue.prototype.$http = axios;

@@ -50,8 +50,9 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          console.log("登录成功");
-          localStorage.setItem("info", "admin");
+          console.log(this);
+          localStorage.setItem("info", this.ruleForm.name);
+          this.$router.push("/home");
         } else {
           console.log("登录失败！！");
           return false;
