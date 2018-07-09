@@ -1,6 +1,8 @@
 <template>
   <div class="home">
     <Main msg="Welcome to Your CRM"/>
+    <router-link to="/home">主页</router-link>
+    <router-link to="/about">关于</router-link>
   </div>
 </template>
 
