@@ -4,6 +4,7 @@ import Home from "./views/Home.vue";
 import About from "./views/About.vue";
 import Login from "./views/Login.vue";
 import Welcome from "./views/Welcome.vue";
+import Usercenter from "./components/Usercenter.vue";
 import CC from "./components/chuanjiankehu.vue";
 import CM from "./components/kehuguanli.vue";
 import PM from "./components/kabaoguanli.vue";
@@ -23,6 +24,11 @@ export default new Router({
       name: "home",
       component: Home,
       children: [
+        {
+          path: "usercenter",
+          name: "usercenter",
+          component: Usercenter
+        },
         {
           path: "create",
           name: "create",

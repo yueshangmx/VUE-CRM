@@ -1,5 +1,8 @@
 <template>
-  <h1>客户管理页面</h1>
+  <div>
+    <h1>客户管理页面</h1>
+    <div class="long"></div>
+  </div>
 </template>
 
 <script>
@@ -8,5 +11,9 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less">
+.long {
+  height: 1000px;
+  background-color: pink;
+}
 </style>

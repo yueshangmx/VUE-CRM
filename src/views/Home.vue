@@ -2,12 +2,12 @@
   <div class="home">
     <nav class="nav-top">
       <div class="user-img">
-        <img src="../assets/images/logo.png" alt="">
+        <img src="../assets/images/home.png" alt="">
       </div>
       <el-menu class="el-menu" mode="horizontal" >
         <el-submenu index="1">
           <template slot="title">登录账户：admin</template>
-          <el-menu-item index="1-1">个人中心</el-menu-item>
+          <el-menu-item index="1-1"><router-link to="/home">个人中心</router-link></el-menu-item>
           <el-menu-item index="1-2">修改密码</el-menu-item>
           <el-menu-item index="1-3">退出登录</el-menu-item>
         </el-submenu>
@@ -17,6 +17,7 @@
       </div>
     </nav>
     <Main />
+    <router-view></router-view>
     <div class="nav-bottom">
       <router-link to="/home" class="home-active">首页</router-link>
       <router-link to="/about">关于</router-link>
@@ -47,7 +48,7 @@ export default {
     border-bottom: solid 1px #e6e6e6;
     .user-img {
       img {
-        height: 60px;
+        height: 45px;
       }
     }
     ul {
