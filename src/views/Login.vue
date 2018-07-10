@@ -1,18 +1,11 @@
 <template>
   <div class="login">
     <h1>登录CRM</h1>
-    <div>
-      <el-form :model="ruleForm" status-icon :rules="rules2" ref="ruleForm" label-width="80px" class="ruleForm">
-        <el-form-item label="账号" prop="name">
-          <el-input v-model="ruleForm.name"></el-input>
-        </el-form-item>
-        <el-form-item label="密码" prop="pass">
-          <el-input type="password" v-model="ruleForm.pass" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
-        </el-form-item>
-      </el-form>
+    <div class="container">
+      <mt-field label="用户名" placeholder="请输入用户名" :state="userinfo.nameState" v-model="userinfo.name"></mt-field>
+      <mt-field label="密码" placeholder="请输入密码" type="password" :state="userinfo.pwdState" v-model="userinfo.pwd"></mt-field>
+      <mt-switch v-model="userinfo.checkbox">记住密码</mt-switch>
+      <mt-button type="primary" size="large" @click="login">登录</mt-button>
     </div>
   </div>
 </template>
@@ -21,43 +14,29 @@
 export default {
   name: "login",
   data() {
-    let checkname = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error("账号不能为空"));
-      } else {
-        callback();
-      }
-    };
-    let validatePass = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入密码"));
-      } else {
-        callback();
-      }
-    };
     return {
-      ruleForm: {
-        pass: "",
-        name: ""
-      },
-      rules2: {
-        pass: [{ validator: validatePass, trigger: "blur" }],
-        name: [{ validator: checkname, trigger: "blur" }]
+      userinfo: {
+        name: "",
+        nameState: "",
+        pwd: "",
+        pwdState: "",
+        id: "",
+        checkbox: false,
+        token: ""
       }
     };
   },
   methods: {
-    submitForm(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          console.log(this);
-          localStorage.setItem("info", this.ruleForm.name);
-          this.$router.push("/home");
-        } else {
-          console.log("登录失败！！");
-          return false;
-        }
-      });
+    login() {
+      console.log(this.userinfo);
+      this.$http
+        .post("http://crm.coolbear.wang/data/login.php", this.userinfo)
+        .then(function(res) {
+          console.log(res);
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
     }
   }
 };
@@ -66,10 +45,11 @@ export default {
 <style lang="less">
 .login {
   margin: 0 auto;
-  .el-form {
-    padding-right: 40px;
-    .el-button {
-      width: 100%;
+  padding-top: 40%;
+  .container {
+    padding: 0 20px;
+    .mint-switch {
+      margin: 10px auto;
     }
   }
 }

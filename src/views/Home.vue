@@ -1,20 +1,10 @@
 <template>
   <div class="home">
     <nav class="nav-top">
-      <div class="user-img">
-        <img src="../assets/images/home.png" alt="">
-      </div>
-      <el-menu class="el-menu" mode="horizontal" >
-        <el-submenu index="1">
-          <template slot="title">登录账户：admin</template>
-          <el-menu-item index="1-1"><router-link to="/home">个人中心</router-link></el-menu-item>
-          <el-menu-item index="1-2">修改密码</el-menu-item>
-          <el-menu-item index="1-3">退出登录</el-menu-item>
-        </el-submenu>
-      </el-menu>
-      <div class="qcode">
-        <i class="iconfont icon-code"></i>
-      </div>
+      <mt-header title="标题过长会隐藏后面的内容啊哈哈哈哈">
+        <mt-button v-link="'/'" icon="back" slot="left">返回</mt-button>
+        <mt-button icon="more" slot="right"></mt-button>
+      </mt-header>
     </nav>
     <Main />
     <router-view></router-view>
