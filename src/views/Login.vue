@@ -28,12 +28,28 @@ export default {
   },
   methods: {
     login() {
-      console.log(this.userinfo);
+      this.$indicator.open({
+        text: "登陆中...",
+        spinnerType: "fading-circle"
+      });
       this.$http
-        .post("http://crm.coolbear.wang/data/login.php", this.userinfo)
-        .then(function(res) {
-          console.log(res);
-        })
+        .post(
+          "http://crm.dev.com/data/login.php",
+          this.$Qs.stringify(this.userinfo)
+        )
+        .then(
+          function(res) {
+            if (res.data.user_name == this.userinfo.name) {
+              console.log(res);
+              this.$indicator.close();
+              this.$toast("登录成功！");
+              this.$router.replace("/home");
+            } else {
+              this.$indicator.close();
+              this.$toast("登录失败！");
+            }
+          }.bind(this)
+        )
         .catch(function(err) {
           console.log(err);
         });

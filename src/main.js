@@ -3,11 +3,13 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import axios from "axios";
+import Qs from "qs";
 import MintUI from "mint-ui";
 import "./assets/css/iconfont/iconfont.css";
 import "mint-ui/lib/style.min.css";
 
 Vue.use(MintUI);
+Vue.prototype.$Qs = Qs;
 Vue.prototype.$http = axios;
 Vue.config.productionTip = false;
 
