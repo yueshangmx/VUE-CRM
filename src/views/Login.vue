@@ -4,6 +4,7 @@
     <div class="container">
       <mt-field label="用户名" placeholder="请输入用户名" :state="userinfo.nameState" v-model="userinfo.name"></mt-field>
       <mt-field label="密码" placeholder="请输入密码" type="password" :state="userinfo.pwdState" v-model="userinfo.pwd"></mt-field>
+      <div class="clear"></div>
       <mt-button type="primary" size="large" @click="login">登录</mt-button>
     </div>
   </div>
@@ -20,40 +21,70 @@ export default {
         pwd: "",
         pwdState: "",
         id: "",
-        token: "498D8EBF84F656D7744B8FE65B840FBF"
+        token: ""
       }
     };
   },
   methods: {
     login() {
-      this.$indicator.open({
-        text: "登陆中...",
-        spinnerType: "fading-circle"
-      });
-      this.$http
-        .post(
-          "http://crm.dev.com/data/login.php",
-          this.$Qs.stringify(this.userinfo)
-        )
-        .then(
-          function(res) {
-            console.log(res);
-            if (resData.result == true) {
-              console.log(res);
-              this.$indicator.close();
-              this.$toast("登录成功！");
-              console.log(this.$router);
-              this.$router.push("/home");
-            } else {
-              console.log(res);
-              this.$indicator.close();
-              this.$toast("登录失败！");
-            }
-          }.bind(this)
-        )
-        .catch(function(err) {
-          console.log(err);
-        });
+      if (this.userinfo.name && this.userinfo.pwd) {
+        if (
+          this.userinfo.nameState == "success" &&
+          this.userinfo.pwdState == "success"
+        ) {
+          this.$indicator.open({
+            text: "登陆中...",
+            spinnerType: "fading-circle"
+          });
+          this.$http
+            .post(
+              "http://vue.dev.com/data/login.php",
+              this.$Qs.stringify(this.userinfo)
+            )
+            .then(
+              function(res) {
+                if (res.data.result || res.data.user_token) {
+                  console.log(res.data);
+                  this.$indicator.close();
+                  this.$toast("登录成功！");
+                  this.$router.push("/home");
+                } else {
+                  this.$indicator.close();
+                  this.$toast("用户名或密码错误! ");
+                }
+              }.bind(this)
+            )
+            .catch(function(err) {
+              console.log(err);
+            });
+        } else {
+          this.$toast("用户名或密码不规范！");
+        }
+      } else {
+        this.$toast("用户名或密码未填写！");
+      }
+    }
+  },
+  watch: {
+    "userinfo.name": function() {
+      if (this.userinfo.name) {
+        let regName = /[A-Za-z_\-\u4e00-\u9fa5][A-Za-z0-9_\-\u4e00-\u9fa5]{5,15}/;
+        this.userinfo.nameState = regName.test(this.userinfo.name)
+          ? "success"
+          : "error";
+      } else {
+        this.userinfo.nameState = "";
+      }
+    },
+    "userinfo.pwd": function() {
+      if (this.userinfo.pwd) {
+        let regPwd = /\w{6,16}/;
+        this.userinfo.pwdState = regPwd.test(this.userinfo.pwd)
+          ? "success"
+          : "error";
+      } else {
+        this.userinfo.pwdState = "";
+      }
     }
   }
 };
@@ -65,8 +96,8 @@ export default {
   padding-top: 40%;
   .container {
     padding: 0 20px;
-    button {
-      margin-top: 20px;
+    .clear {
+      height: 20px;
     }
   }
 }
