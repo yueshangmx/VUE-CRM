@@ -4,7 +4,6 @@
     <div class="container">
       <mt-field label="用户名" placeholder="请输入用户名" :state="userinfo.nameState" v-model="userinfo.name"></mt-field>
       <mt-field label="密码" placeholder="请输入密码" type="password" :state="userinfo.pwdState" v-model="userinfo.pwd"></mt-field>
-      <mt-switch v-model="userinfo.checkbox">记住密码</mt-switch>
       <mt-button type="primary" size="large" @click="login">登录</mt-button>
     </div>
   </div>
@@ -21,8 +20,7 @@ export default {
         pwd: "",
         pwdState: "",
         id: "",
-        checkbox: false,
-        token: ""
+        token: "498D8EBF84F656D7744B8FE65B840FBF"
       }
     };
   },
@@ -39,12 +37,15 @@ export default {
         )
         .then(
           function(res) {
-            if (res.data.user_name == this.userinfo.name) {
+            console.log(res);
+            if (resData.result == true) {
               console.log(res);
               this.$indicator.close();
               this.$toast("登录成功！");
-              this.$router.replace("/home");
+              console.log(this.$router);
+              this.$router.push("/home");
             } else {
+              console.log(res);
               this.$indicator.close();
               this.$toast("登录失败！");
             }
@@ -64,8 +65,8 @@ export default {
   padding-top: 40%;
   .container {
     padding: 0 20px;
-    .mint-switch {
-      margin: 10px auto;
+    button {
+      margin-top: 20px;
     }
   }
 }
