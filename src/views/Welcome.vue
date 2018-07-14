@@ -12,10 +12,21 @@
 export default {
   name: "Welcome",
   created() {
-    let that = this;
-    setTimeout(function() {
-      that.$router.push({ path: "/home" });
-    }, 3000);
+    if (this.$global.getCookie("token")) {
+      this.$http
+        .post(
+          "http://vue.dev.com/data/login.php",
+          this.$Qs.stringify({ token: this.$global.getCookie("token") })
+        )
+        .then(function(res) {
+          console.log(res);
+        });
+    } else {
+      let that = this;
+      setTimeout(function() {
+        that.$router.push({ path: "/login" });
+      }, 3000);
+    }
   }
 };
 </script>

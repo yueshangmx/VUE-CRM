@@ -43,8 +43,9 @@ export default {
             )
             .then(
               function(res) {
-                if (res.data.result || res.data.user_token) {
+                if (res.data.user_token) {
                   console.log(res.data);
+                  this.$global.setCookie("token", res.data.user_token, 7);
                   this.$indicator.close();
                   this.$toast("登录成功！");
                   this.$router.push("/home");
