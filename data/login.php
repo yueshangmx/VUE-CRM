@@ -6,9 +6,10 @@
  * Time: 11:40
  */
 require_once "connect.php";
+
 $token = $_POST['token'];
-$name  = $_POST['name'];
-$pwd   = md5($_POST['pwd']);
+$name  = !empty($_POST['name']) ? $_POST['name'] : "";
+$pwd   = !empty($_POST['pwd']) ? md5($_POST['pwd']) : "";
 
 
 if ( $token ) {

@@ -11,27 +11,7 @@ import "mint-ui/lib/style.min.css";
 Vue.use(MintUI);
 Vue.prototype.$Qs = Qs;
 Vue.prototype.$http = axios;
-Vue.config.productionTip = false;
-
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount("#app");
-
-router.beforeEach((to, from, next) => {
-  let info = window.localStorage.getItem("info");
-  if (!info && to.path != "/login") {
-    next({ path: "/login" });
-  } else {
-    next();
-  }
-  if (to.path == "/home") {
-    next({ path: "/home/usercenter" });
-  }
-});
-
-Vue.prototype.$global = {
+Vue.prototype.$Global = {
   //设置Cookie
   setCookie: function(name, value, day) {
     let date = new Date();
@@ -53,3 +33,23 @@ Vue.prototype.$global = {
     this.setCookie(name, null, -1);
   }
 };
+
+Vue.config.productionTip = false;
+
+new Vue({
+  router,
+  store,
+  render: h => h(App)
+}).$mount("#app");
+
+router.beforeEach((to, from, next) => {
+  let token = this.$global.getCookie("token");
+  if (!token && to.path != "/login") {
+    next({ path: "/login" });
+  } else {
+    next();
+  }
+  if (to.path == "/home") {
+    next({ path: "/home/usercenter" });
+  }
+});
