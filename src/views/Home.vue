@@ -2,7 +2,7 @@
   <div class="home">
     <nav class="nav-top">
       <mt-header title="当前账户">
-        <mt-button :to="'/'" icon="back" slot="left">返回</mt-button>
+        <mt-button @click="goUC" icon="back" slot="left">返回</mt-button>
         <mt-button icon="more" slot="right"></mt-button>
       </mt-header>
     </nav>
@@ -23,6 +23,11 @@ export default {
   name: "home",
   components: {
     Main
+  },
+  methods: {
+    goUC: function() {
+      this.$router.replace({ path: "/home" });
+    }
   }
 };
 </script>
