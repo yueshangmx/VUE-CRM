@@ -43,7 +43,7 @@ new Vue({
 }).$mount("#app");
 
 router.beforeEach((to, from, next) => {
-  let token = this.$global.getCookie("token");
+  let token = localStorage.getItem("token");
   if (!token && to.path != "/login") {
     next({ path: "/login" });
   } else {

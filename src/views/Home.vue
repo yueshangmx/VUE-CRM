@@ -1,8 +1,8 @@
 <template>
   <div class="home">
     <nav class="nav-top">
-      <mt-header title="标题过长会隐藏后面的内容啊哈哈哈哈">
-        <mt-button v-link="'/'" icon="back" slot="left">返回</mt-button>
+      <mt-header title="当前账户">
+        <mt-button :to="'/'" icon="back" slot="left">返回</mt-button>
         <mt-button icon="more" slot="right"></mt-button>
       </mt-header>
     </nav>
@@ -34,8 +34,10 @@ export default {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
     border-bottom: solid 1px #e6e6e6;
+    .mint-header {
+      width: 100%;
+    }
     .user-img {
       img {
         height: 45px;

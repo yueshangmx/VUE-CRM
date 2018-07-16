@@ -46,6 +46,7 @@ export default {
                 if (res.data.user_token) {
                   console.log(res.data);
                   this.$Global.setCookie("token", res.data.user_token, 7);
+                  localStorage.setItem("token", res.data.user_token);
                   this.$indicator.close();
                   this.$toast("登录成功！");
                   this.$router.push({ path: "/home" });

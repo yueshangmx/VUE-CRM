@@ -11,18 +11,17 @@
 <script>
 export default {
   name: "Welcome",
-  mounted() {
-    console.log(this);
-    if (this.$Global.getCookie("token")) {
+  created() {
+    let _token = this.$Global.getCookie("token");
+    if (_token) {
       this.$http
         .post(
           "http://vue.dev.com/data/login.php",
-          this.$Qs.stringify({ token: this.$global.getCookie("token") })
+          this.$Qs.stringify({ token: _token })
         )
         .then(
           function(res) {
             if (res.data.user_token) {
-              this.$Global.setCookie("token", res.data.user_token, 7);
               this.$router.push({ path: "/home" });
             }
           }.bind(this)
