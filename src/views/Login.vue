@@ -45,12 +45,12 @@ export default {
               function(res) {
                 if (res.data.user_token) {
                   console.log(res.data);
-                  this.$Global.setCookie("token", res.data.user_token, 7);
                   this.$indicator.close();
                   this.$toast("登录成功！");
+                  this.$Global.setCookie("token", res.data.user_token, 7);
+                  window.sessionStorage.setItem("info", JSON.stringify(res.data));
                   console.log(this);
                   this.$router.push({ path: "/home" });
-                  sessionStorage.setItem("info", JSON.stringify(res.data));
                 } else {
                   this.$indicator.close();
                   this.$toast("用户名或密码错误! ");

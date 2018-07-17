@@ -23,7 +23,7 @@ export default {
           function(res) {
             console.log(res);
             if (res.data.user_token) {
-              sessionStorage.setItem("info", JSON.stringify(res.data));
+              window.sessionStorage.setItem("info", JSON.stringify(res.data));
               this.$router.push({ path: "/home" });
             }
           }.bind(this)
