@@ -7,7 +7,7 @@
             <ul class="menu" v-show="isshow">
               <li><router-link to="/home">个人中心</router-link></li>
               <li><router-link to="/pwd">修改密码</router-link></li>
-              <li><a href="javascript:;">注销登录</a></li>
+              <li><a href="javascript:;" @click="logout">注销登录</a></li>
             </ul>
           </transition>
         </mt-button>
