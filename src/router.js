@@ -5,7 +5,7 @@ import About from "./views/About.vue";
 import Login from "./views/Login.vue";
 import Welcome from "./views/Welcome.vue";
 import Usercenter from "./components/Usercenter.vue";
-import Pwd from "./views/passwd.vue";
+import Pwd from "./components/passwd.vue";
 import CC from "./components/chuanjiankehu.vue";
 import CM from "./components/kehuguanli.vue";
 import PM from "./components/kabaoguanli.vue";
@@ -49,6 +49,11 @@ export default new Router({
           path: "all-clients",
           name: "clist",
           component: CL
+        },
+        {
+          path: "pwd",
+          name: "pwd",
+          component: Pwd
         }
       ]
     },
@@ -61,11 +66,6 @@ export default new Router({
       path: "/about",
       name: "about",
       component: About
-    },
-    {
-      path: "/pwd",
-      name: "pwd",
-      component: Pwd
     }
   ]
 });
