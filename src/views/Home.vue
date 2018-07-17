@@ -2,6 +2,7 @@
   <div class="home" @click="closeMenu">
     <nav class="nav-top">
       <mt-header title="当前账户">
+        <mt-button slot="left" @click.stop="showMainMenu">菜单</mt-button>
         <mt-button icon="more" slot="right" @click.stop="showMenu">
           <transition name="fade" mode="out-in">
             <ul class="menu" v-show="isshow">
@@ -13,7 +14,7 @@
         </mt-button>
       </mt-header>
     </nav>
-    <Main />
+    <Main v-if="MainMenu" />
     <router-view></router-view>
     <div class="nav-bottom">
       <router-link to="/home" class="home-active">首页</router-link>
@@ -30,7 +31,8 @@ export default {
   name: "home",
   data() {
     return {
-      isshow: ""
+      isshow: false,
+      MainMenu: false
     };
   },
   components: {
@@ -45,8 +47,11 @@ export default {
       this.$router.replace({ path: "/login" });
     },
     closeMenu: function() {
-      console.log(this.isshow);
       this.isshow && (this.isshow = false);
+      this.MainMenu && (this.MainMenu = false);
+    },
+    showMainMenu: function() {
+      this.MainMenu = this.MainMenu ? false : true;
     }
   }
 };
@@ -81,19 +86,14 @@ export default {
         }
       }
     }
-    .user-img {
-      img {
-        height: 45px;
-      }
-    }
     ul {
       border-bottom: 0;
     }
-    .qcode {
-      .iconfont {
-        font-size: 30px;
-      }
-    }
+  }
+  .main {
+    position: fixed;
+    width: 100%;
+    background-color: #f2f2f2;
   }
   img {
     max-width: 100%;
