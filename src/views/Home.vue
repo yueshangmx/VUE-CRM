@@ -44,6 +44,7 @@ export default {
     },
     logout: function() {
       this.$Global.delCookie("token");
+      sessionStorage.removeItem("info");
       this.$router.replace({ path: "/login" });
     },
     closeMenu: function() {
@@ -52,6 +53,12 @@ export default {
     },
     showMainMenu: function() {
       this.MainMenu = this.MainMenu ? false : true;
+    }
+  },
+  created() {
+    let username = JSON.parse(window.sessionStorage.getItem("info"));
+    if (!username || !username.user_name) {
+      this.$router.replace({ path: "/login" });
     }
   }
 };

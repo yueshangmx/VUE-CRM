@@ -46,10 +46,11 @@ export default {
                 if (res.data.user_token) {
                   console.log(res.data);
                   this.$Global.setCookie("token", res.data.user_token, 7);
-                  localStorage.setItem("token", res.data.user_token);
                   this.$indicator.close();
                   this.$toast("登录成功！");
+                  console.log(this);
                   this.$router.push({ path: "/home" });
+                  sessionStorage.setItem("info", JSON.stringify(res.data));
                 } else {
                   this.$indicator.close();
                   this.$toast("用户名或密码错误! ");
