@@ -7,14 +7,13 @@
             <ul class="menu" v-show="isshow">
               <li><router-link to="/home">个人中心</router-link></li>
               <li><router-link to="/pwd">修改密码</router-link></li>
-              <li><a href="javascript:;">注销登录</a></li>
+              <li><a href="javascript:;" @click="logout">注销登录</a></li>
             </ul>
           </transition>
         </mt-button>
       </mt-header>
     </nav>
-    <Main />
-    <router-view></router-view>
+    <p>这是修改密码的界面</p>
     <div class="nav-bottom">
       <router-link to="/home" class="home-active">首页</router-link>
       <router-link to="/about">关于</router-link>
@@ -23,22 +22,19 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import Main from "@/components/Main.vue";
-
 export default {
-  name: "home",
+  name: "passwd",
   data() {
     return {
       isshow: ""
     };
   },
-  components: {
-    Main
-  },
   methods: {
-    showMenu: function() {
+    showMenu: function(e) {
       this.isshow = this.isshow ? false : true;
+      let _e = e || event;
+      _e.stopPropagation();
+      _e.cancelBubble = true;
     },
     logout: function() {
       this.$Global.delCookie("token");
@@ -81,22 +77,9 @@ export default {
         }
       }
     }
-    .user-img {
-      img {
-        height: 45px;
-      }
-    }
-    ul {
-      border-bottom: 0;
-    }
-    .qcode {
-      .iconfont {
-        font-size: 30px;
-      }
-    }
   }
-  img {
-    max-width: 100%;
+  ul {
+    border-bottom: 0;
   }
   .home-active {
     background-color: #409eff !important;

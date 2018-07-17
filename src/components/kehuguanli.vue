@@ -13,7 +13,6 @@ export default {
 
 <style lang="less">
 .long {
-  height: 1000px;
   background-color: pink;
 }
 </style>
