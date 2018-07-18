@@ -1,7 +1,7 @@
 <template>
   <div class="home" @click="closeMenu">
     <nav class="nav-top">
-      <mt-header title="当前账户">
+      <mt-header :title="username">
         <mt-button slot="left" @click.stop="showMainMenu">菜单</mt-button>
         <mt-button icon="more" slot="right" @click.stop="showMenu">
           <transition name="fade" mode="out-in">
@@ -32,7 +32,8 @@ export default {
   data() {
     return {
       isshow: false,
-      MainMenu: false
+      MainMenu: false,
+      username: ""
     };
   },
   components: {
@@ -56,9 +57,11 @@ export default {
     }
   },
   created() {
-    let username = JSON.parse(sessionStorage.getItem("info"));
-    if (!username || !username.user_name) {
+    let userinfo = JSON.parse(sessionStorage.getItem("info"));
+    if (!userinfo || !userinfo.user_name) {
       this.$router.replace({ path: "/login" });
+    } else {
+      this.username = userinfo.user_name.toUpperCase();
     }
   }
 };
