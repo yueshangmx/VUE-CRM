@@ -38,7 +38,7 @@ export default {
           });
           this.$http
             .post(
-              "http://vue.dev.com/data/login.php",
+              "http://crm.coolbear.wang/data/login.php",
               this.$Qs.stringify(this.userinfo)
             )
             .then(
@@ -48,7 +48,7 @@ export default {
                   this.$indicator.close();
                   this.$toast("登录成功！");
                   this.$Global.setCookie("token", res.data.user_token, 7);
-                  window.sessionStorage.setItem("info", JSON.stringify(res.data));
+                  sessionStorage.setItem("info", JSON.stringify(res.data));
                   console.log(this);
                   this.$router.push({ path: "/home" });
                 } else {

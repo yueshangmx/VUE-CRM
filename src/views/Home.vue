@@ -56,7 +56,7 @@ export default {
     }
   },
   created() {
-    let username = JSON.parse(window.sessionStorage.getItem("info"));
+    let username = JSON.parse(sessionStorage.getItem("info"));
     if (!username || !username.user_name) {
       this.$router.replace({ path: "/login" });
     }

@@ -16,14 +16,13 @@ export default {
     if (_token) {
       this.$http
         .post(
-          "http://vue.dev.com/data/login.php",
+          "http://crm.coolbear.wang/data/login.php",
           this.$Qs.stringify({ token: _token })
         )
         .then(
           function(res) {
-            console.log(res);
             if (res.data.user_token) {
-              window.sessionStorage.setItem("info", JSON.stringify(res.data));
+              sessionStorage.setItem("info", JSON.stringify(res.data));
               this.$router.push({ path: "/home" });
             }
           }.bind(this)
