@@ -44,12 +44,10 @@ export default {
             .then(
               function(res) {
                 if (res.data.user_token) {
-                  console.log(res.data);
                   this.$indicator.close();
                   this.$toast("登录成功！");
                   this.$Global.setCookie("token", res.data.user_token, 0.5);
                   sessionStorage.setItem("info", JSON.stringify(res.data));
-                  console.log(this);
                   this.$router.push({ path: "/home" });
                 } else {
                   this.$indicator.close();
