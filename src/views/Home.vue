@@ -1,8 +1,7 @@
 <template>
-  <div class="home" @click="closeMenu">
+  <div class="home">
     <Head />
-    <Main v-if="MainMenu" />
-    <router-view></router-view>
+    <Main />
     <Foot />
   </div>
 </template>
@@ -10,8 +9,8 @@
 <script>
 // @ is an alias to /src
 import Main from "@/components/Main.vue";
-import Foot from "@/components/Foot.vue";
-import Head from "../components/Head";
+import Head from "@/components/Head.vue";
+import Foot from "../components/Foot";
 
 export default {
   name: "home",
@@ -23,26 +22,9 @@ export default {
     };
   },
   components: {
+    Foot,
     Head,
-    Main,
-    Foot
-  },
-  methods: {
-    showMenu: function() {
-      this.isshow = this.isshow ? false : true;
-    },
-    logout: function() {
-      this.$Global.delCookie("token");
-      sessionStorage.removeItem("info");
-      this.$router.replace({ path: "/login" });
-    },
-    closeMenu: function() {
-      this.isshow && (this.isshow = false);
-      this.MainMenu && (this.MainMenu = false);
-    },
-    showMainMenu: function() {
-      this.MainMenu = this.MainMenu ? false : true;
-    }
+    Main
   },
   created() {
     let userinfo = JSON.parse(sessionStorage.getItem("info"));
@@ -66,39 +48,10 @@ export default {
     .mint-header {
       width: 100%;
       background-color: #df5420;
-      .menu {
-        list-style: none;
-        position: fixed;
-        right: 0;
-        background-color: #fff;
-        width: 80px;
-        padding-left: 0;
-        li {
-          padding-bottom: 5px;
-          a {
-            color: #df5420;
-          }
-          &:before {
-            content: "> ";
-            color: #df5420;
-          }
-        }
-      }
-    }
-    ul {
-      border-bottom: 0;
     }
   }
-  .main {
-    position: fixed;
-    width: 100%;
-    background-color: #f2f2f2;
-  }
-  img {
-    max-width: 100%;
-  }
-  .home-active {
-    background-color: #df5420 !important;
+  .nav-home {
+    color: #df5420 !important;
   }
 }
 </style>

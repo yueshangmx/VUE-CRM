@@ -1,6 +1,21 @@
 <template>
   <div class="main">
-
+    <router-link to="/create" class="link">
+      <i class="iconfont icon-jiahao"></i>
+      创建客户
+    </router-link>
+    <router-link to="/create" class="link">
+      <i class="iconfont icon-kehu"></i>
+      客户管理
+    </router-link>
+    <router-link to="/create" class="link">
+      <i class="iconfont icon-shangpinguanli01"></i>
+      商品管理
+    </router-link>
+    <router-link to="/create" class="link">
+      <i class="iconfont icon-yuangongguanli"></i>
+      员工管理
+    </router-link>
   </div>
 </template>
 
@@ -12,32 +27,22 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
+.main {
+  margin-top: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  box-sizing: border-box;
-  li {
-    width: 65px;
-    height: 65px;
-    padding: 5px;
-    background-color: #df5420;
-    border: 1px solid #eee;
-    a {
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      i {
-        font-size: 30px;
-      }
+  .link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    font-size: 14px;
+    i {
+      font-size: 22px;
+      margin-bottom: 5px;
     }
   }
 }

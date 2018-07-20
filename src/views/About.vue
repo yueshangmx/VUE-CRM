@@ -1,5 +1,6 @@
 <template>
   <div class="about">
+    <Head />
     <h2>智能CRM管理系统</h2>
     <div class="content">
       <p>版本 v0.2</p>
@@ -10,17 +11,21 @@
 </template>
 
 <script>
-import Foot from "@/components/Foot.vue";
+import Head from "@/components/Head.vue";
+import Foot from "../components/Foot";
 
 export default {
-  comments: {
-    Foot
+  components: {
+    Foot,
+    Head
   }
 };
 </script>
 
-<style>
-.about-active {
-  background-color: #df5420 !important;
+<style lang="less">
+.about {
+  .nav-about {
+    color: #df5420 !important;
+  }
 }
 </style>

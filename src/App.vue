@@ -14,27 +14,8 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
+    color: #333;
     box-sizing: border-box;
-    .nav-bottom {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-around;
-      a {
-        width: 50%;
-        height: 40px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background-color: #909399;
-        color: #fff;
-      }
-    }
   }
   a {
     text-decoration: none;
