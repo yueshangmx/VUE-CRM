@@ -12,12 +12,12 @@
 export default {
   name: "Welcome",
   created() {
-    let _token = this.$Global.getCookie("token");
-    if (_token) {
+    let _info = this.$Global.getCookie("info");
+    if (_info) {
       this.$http
         .post(
           "http://crm.coolbear.wang/data/login.php",
-          this.$Qs.stringify({ token: _token })
+          this.$Qs.stringify({ token: JSON.parse(_info).user_token })
         )
         .then(
           function(res) {
