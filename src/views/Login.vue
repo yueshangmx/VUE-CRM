@@ -5,7 +5,7 @@
       <mt-field label="用户名" placeholder="请输入用户名" :state="userinfo.nameState" v-model="userinfo.name"></mt-field>
       <mt-field label="密码" placeholder="请输入密码" type="password" :state="userinfo.pwdState" v-model="userinfo.pwd"></mt-field>
       <div class="clear"></div>
-      <mt-button type="primary" size="large" @click="login">登录</mt-button>
+      <mt-button type="default" size="large" @click="login">登录</mt-button>
     </div>
   </div>
 </template>
@@ -99,6 +99,10 @@ export default {
     padding: 0 20px;
     .clear {
       height: 20px;
+    }
+    .mint-button {
+      background-color: #df5420;
+      color: #fff;
     }
   }
 }

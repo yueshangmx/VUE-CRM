@@ -49,7 +49,4 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
-  if (to.path == "/home") {
-    next({ path: "/home/usercenter" });
-  }
 });

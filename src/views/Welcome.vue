@@ -59,7 +59,7 @@ body {
       width: 100%;
       height: 100%;
       z-index: -99;
-      background: linear-gradient(#37ab2f, #336600);
+      background: linear-gradient(#ffa500, #df5420);
     }
   }
 }

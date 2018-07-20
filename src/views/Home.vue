@@ -1,31 +1,17 @@
 <template>
   <div class="home" @click="closeMenu">
-    <nav class="nav-top">
-      <mt-header :title="username">
-        <mt-button slot="left" @click.stop="showMainMenu">菜单</mt-button>
-        <mt-button icon="more" slot="right" @click.stop="showMenu">
-          <transition name="fade" mode="out-in">
-            <ul class="menu" v-show="isshow">
-              <li><router-link to="/home">个人中心</router-link></li>
-              <li><router-link to="/home/pwd">修改密码</router-link></li>
-              <li><a href="javascript:;" @click="logout">注销登录</a></li>
-            </ul>
-          </transition>
-        </mt-button>
-      </mt-header>
-    </nav>
+    <Head />
     <Main v-if="MainMenu" />
     <router-view></router-view>
-    <div class="nav-bottom">
-      <router-link to="/home" class="home-active">首页</router-link>
-      <router-link to="/about">关于</router-link>
-    </div>
+    <Foot />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Main from "@/components/Main.vue";
+import Foot from "@/components/Foot.vue";
+import Head from "../components/Head";
 
 export default {
   name: "home",
@@ -37,7 +23,9 @@ export default {
     };
   },
   components: {
-    Main
+    Head,
+    Main,
+    Foot
   },
   methods: {
     showMenu: function() {
@@ -77,6 +65,7 @@ export default {
     border-bottom: solid 1px #e6e6e6;
     .mint-header {
       width: 100%;
+      background-color: #df5420;
       .menu {
         list-style: none;
         position: fixed;
@@ -87,11 +76,11 @@ export default {
         li {
           padding-bottom: 5px;
           a {
-            color: #409eff;
+            color: #df5420;
           }
           &:before {
             content: "> ";
-            color: #409eff;
+            color: #df5420;
           }
         }
       }
@@ -109,7 +98,7 @@ export default {
     max-width: 100%;
   }
   .home-active {
-    background-color: #409eff !important;
+    background-color: #df5420 !important;
   }
 }
 </style>
