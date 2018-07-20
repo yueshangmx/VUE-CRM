@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <mt-header title="登录账户">
+    <mt-header :title="username">
       <mt-button class="iconfont icon-shuaxin" slot="right"></mt-button>
     </mt-header>
   </div>
@@ -8,7 +8,20 @@
 
 <script>
 export default {
-  name: "Head"
+  name: "Head",
+  data() {
+    return {
+      username: ""
+    };
+  },
+  created() {
+    let userinfo = JSON.parse(sessionStorage.getItem("info"));
+    if (!userinfo || !userinfo.user_name) {
+      this.$router.replace({ path: "/login" });
+    } else {
+      this.username = userinfo.user_name.toUpperCase();
+    }
+  }
 };
 </script>
 

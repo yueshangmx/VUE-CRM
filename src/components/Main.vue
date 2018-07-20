@@ -1,18 +1,18 @@
 <template>
   <div class="main">
-    <router-link to="/create" class="link">
+    <router-link to="/add" class="link">
       <i class="iconfont icon-jiahao"></i>
       创建客户
     </router-link>
-    <router-link to="/create" class="link">
+    <router-link to="/consumer" class="link">
       <i class="iconfont icon-kehu"></i>
       客户管理
     </router-link>
-    <router-link to="/create" class="link">
+    <router-link to="/goods" class="link">
       <i class="iconfont icon-shangpinguanli01"></i>
       商品管理
     </router-link>
-    <router-link to="/create" class="link">
+    <router-link to="/member" class="link">
       <i class="iconfont icon-yuangongguanli"></i>
       员工管理
     </router-link>
