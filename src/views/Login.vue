@@ -46,7 +46,7 @@ export default {
                 if (res.data.user_token) {
                   this.$indicator.close();
                   this.$toast("登录成功！");
-                  this.$Global.setCookie("info", JSON.stringify(res.data), 0.5);
+                  this.$Global.setCookie("token", res.data.user_token, 0.5);
                   sessionStorage.setItem("info", JSON.stringify(res.data));
                   this.$router.replace({ path: "/home" });
                 } else {
@@ -89,7 +89,7 @@ export default {
     }
   },
   mounted() {
-    document.getElementsByClassName("mint-field-core")[0].autofocus=true;
+    document.getElementsByClassName("mint-field-core")[0].onclick();
   }
 };
 </script>
