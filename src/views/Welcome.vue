@@ -23,14 +23,14 @@ export default {
           function(res) {
             if (res.data.user_token) {
               sessionStorage.setItem("info", JSON.stringify(res.data));
-              this.$router.push({ path: "/home" });
+              this.$router.replace({ path: "/home" });
             }
           }.bind(this)
         );
     } else {
       let that = this;
       setTimeout(function() {
-        that.$router.push({ path: "/login" });
+        that.$router.replace({ path: "/login" });
       }, 3000);
     }
   }

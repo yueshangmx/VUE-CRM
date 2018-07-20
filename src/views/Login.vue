@@ -2,7 +2,7 @@
   <div class="login">
     <h1>登录CRM</h1>
     <div class="container">
-      <mt-field label="用户名" placeholder="请输入用户名" :state="userinfo.nameState" v-model="userinfo.name"></mt-field>
+      <mt-field label="用户名" placeholder="请输入用户名" :state="userinfo.nameState" v-model="userinfo.name" autofocus></mt-field>
       <mt-field label="密码" placeholder="请输入密码" type="password" :state="userinfo.pwdState" v-model="userinfo.pwd"></mt-field>
       <div class="clear"></div>
       <mt-button type="default" size="large" @click="login">登录</mt-button>
@@ -48,7 +48,7 @@ export default {
                   this.$toast("登录成功！");
                   this.$Global.setCookie("token", res.data.user_token, 0.5);
                   sessionStorage.setItem("info", JSON.stringify(res.data));
-                  this.$router.push({ path: "/home" });
+                  this.$router.replace({ path: "/home" });
                 } else {
                   this.$indicator.close();
                   this.$toast("用户名或密码错误! ");
@@ -87,6 +87,9 @@ export default {
         this.userinfo.pwdState = "";
       }
     }
+  },
+  mounted() {
+    console.log(this.userinfo);
   }
 };
 </script>
