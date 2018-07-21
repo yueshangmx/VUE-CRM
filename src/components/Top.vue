@@ -1,6 +1,6 @@
 <template>
   <div class="top">
-    <mt-header>
+    <mt-header :title="title">
       <router-link to="/home" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
@@ -10,7 +10,8 @@
 
 <script>
 export default {
-  name: "Top"
+  name: "Top",
+  props: ["title"]
 };
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="consumer">
-    <Top />
+    <Top title="客户管理" />
     <h2>客户管理</h2>
   </div>
 </template>

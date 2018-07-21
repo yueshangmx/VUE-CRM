@@ -1,6 +1,6 @@
 <template>
   <div class="goods">
-    <Top />
+    <Top title="商品管理" />
     <h2>商品管理</h2>
   </div>
 </template>

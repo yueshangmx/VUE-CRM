@@ -1,11 +1,11 @@
 <template>
-  <div class="add">
-    <Top />
+  <div class="add" v-if="userinfo.kehu_number">
+    <Top title="添加客户" />
     <div class="add-kehu">
       <div class="part">
-        <mt-field label="客户编号" v-model="userinfo.kehu_number"></mt-field>
+        <mt-field label="客户编号" v-model="userinfo.kehu_number" readonly></mt-field>
         <mt-field label="客户姓名" placeholder="请输入用户名" v-model="userinfo.kehu_name"></mt-field>
-        <mt-field label="手机号码" placeholder="请输入手机号" type="tel" v-model="userinfo.kehu_phone"></mt-field>
+        <mt-field label="手机号码" placeholder="请输入手机号" :attr="{maxLength:11}" type="tel" v-model="userinfo.kehu_phone"></mt-field>
         <mt-radio
           title="性别"
           v-model="userinfo.kehu_sex"
@@ -75,11 +75,26 @@ export default {
     checksex() {
       console.log(this.userinfo);
     }
+  },
+  created() {
+    this.$http.get("http://vue.dev.com/data/add_kehu.php").then(
+      function(res) {
+        if (res.data.kehu_number) {
+          this.userinfo.kehu_number = res.data.kehu_number;
+        } else {
+          this.$messagebox
+            .confirm("获取服务器信息失败，是否重试？")
+            .then(() => {
+              console.log(this);
+            });
+        }
+      }.bind(this)
+    );
   }
 };
 </script>
 
-<style scoped lang="less">
+<style lang="less">
 .add {
   .add-kehu {
     margin-bottom: 65px;
@@ -87,6 +102,12 @@ export default {
       margin-bottom: 10px;
       .mint-radiolist {
         text-align: left;
+      }
+      .mint-field {
+        .mint-field-core {
+          padding-right: 20px;
+          text-align: right;
+        }
       }
     }
   }

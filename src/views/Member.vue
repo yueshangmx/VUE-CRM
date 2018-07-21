@@ -1,6 +1,6 @@
 <template>
   <div class="memeber">
-    <Top />
+    <Top title="员工管理" />
     <h2>员工管理</h2>
   </div>
 </template>

@@ -7,6 +7,6 @@
  */
 $result = mysqli_query( $con, $sql );
 
-$check_query = mysqli_fetch_array( $result );
+$res= mysqli_fetch_array( $result );
 
 sleep(1);

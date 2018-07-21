@@ -16,7 +16,7 @@ export default {
     if (_token) {
       this.$http
         .post(
-          "http://crm.coolbear.wang/data/login.php",
+          "http://vue.dev.com/data/login.php",
           this.$Qs.stringify({ token: _token })
         )
         .then(

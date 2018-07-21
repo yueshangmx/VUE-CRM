@@ -38,7 +38,7 @@ export default {
           });
           this.$http
             .post(
-              "http://crm.coolbear.wang/data/login.php",
+              "http://vue.dev.com/data/login.php",
               this.$Qs.stringify(this.userinfo)
             )
             .then(
