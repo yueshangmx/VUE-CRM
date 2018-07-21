@@ -5,7 +5,7 @@
       首页
     </router-link>
     <router-link to="/sales" class="nav-sales">
-      <i class="iconfont icon-pingjuchaxun"></i>
+      <i class="iconfont icon-iconfontzhizuobiaozhunbduan35"></i>
       销售查询
     </router-link>
     <router-link to="/about" class="nav-about">

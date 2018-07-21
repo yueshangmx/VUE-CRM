@@ -64,7 +64,7 @@ export default {
       } else {
         this.$toast("用户名或密码未填写！");
       }
-    },
+    }
   },
   watch: {
     "userinfo.name": function() {
@@ -87,9 +87,6 @@ export default {
         this.userinfo.pwdState = "";
       }
     }
-  },
-  mounted() {
-    document.getElementsByClassName("mint-field-core")[0].onclick();
   }
 };
 </script>

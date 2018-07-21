@@ -1,7 +1,7 @@
 <template>
   <div class="welcome">
     <h2 class="content">
-      <img class="logo" src="../assets/logo.png" alt="CRM">
+      <i class="iconfont icon-icon-test"></i>
       <p>欢迎使用CRM管理系统</p>
     </h2>
     <div class="bg"></div>
@@ -47,8 +47,9 @@ body {
       width: 100%;
       height: 100%;
       top: 30%;
-      .logo {
-        width: 30%;
+      i {
+        font-size: 8rem;
+        color: #fff;
       }
       p {
         color: #f2f2f2;

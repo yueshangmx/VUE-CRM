@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <mt-header :title="username">
-      <mt-button class="iconfont icon-shuaxin" slot="right"></mt-button>
+      <!--<mt-button class="iconfont icon-shuaxin" slot="right"></mt-button>-->
     </mt-header>
   </div>
 </template>
