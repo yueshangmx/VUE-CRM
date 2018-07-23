@@ -20,9 +20,9 @@
         <mt-field label="备注" placeholder="备注信息" type="textarea" rows="2" v-model="userinfo.kehu_beizhu" :state="checkinfo.beizhu"></mt-field>
       </div>
       <div class="part">
-        <mt-field label="QQ" placeholder="客户QQ号" type="number" v-model="userinfo.kehu_qq" :state="checkinfo.qq"></mt-field>
-        <mt-field label="微信" placeholder="客户微信号" type="text" v-model="userinfo.kehu_weixin" :state="checkinfo.weixin"></mt-field>
-        <mt-field label="固话" placeholder="客户固话" type="tel" v-model="userinfo.kehu_phone2" :state="checkinfo.phone2"></mt-field>
+        <mt-field label="QQ" placeholder="QQ号" type="number" v-model="userinfo.kehu_qq" :state="checkinfo.qq"></mt-field>
+        <mt-field label="微信" placeholder="微信号" type="text" v-model="userinfo.kehu_weixin" :state="checkinfo.weixin"></mt-field>
+        <mt-field label="固话" placeholder="固话(区号-号码)" type="tel" v-model="userinfo.kehu_guhua" :state="checkinfo.guhua"></mt-field>
       </div>
     </div>
     <div class="submit">
@@ -46,7 +46,7 @@ export default {
         kehu_birthday: "",
         kehu_address: "",
         kehu_beizhu: "",
-        kehu_phone2: "",
+        kehu_guhua: "",
         kehu_qq: "",
         kehu_weixin: "",
         kehu_email: ""
@@ -58,10 +58,10 @@ export default {
         birthday: "",
         address: "",
         beizhu: "",
-        phone2: "",
         qq: "",
         weixin: "",
-        email: ""
+        email: "",
+        guhua: ""
       }
     };
   },
@@ -73,7 +73,7 @@ export default {
       if (this.userinfo.kehu_name && this.userinfo.kehu_phone) {
         this.$http
           .post(
-            "http://vue.dev.com/data/add_kehu.php",
+            "http://crm.coolbear.wang/data/add_kehu.php",
             this.$Qs.stringify(this.userinfo)
           )
           .then(function(res) {
@@ -148,10 +148,40 @@ export default {
           ? "success"
           : "warning";
       }
+    },
+    "userinfo.kehu_qq": function() {
+      if (!this.userinfo.kehu_qq) {
+        this.checkinfo.qq = "";
+      } else {
+        let regQQ = /[1-9]([0-9]{5,11})/;
+        this.checkinfo.qq = regQQ.test(this.userinfo.kehu_qq)
+          ? "success"
+          : "warning";
+      }
+    },
+    "userinfo.kehu_weixin": function() {
+      if (!this.userinfo.kehu_weixin) {
+        this.checkinfo.weixin = "";
+      } else {
+        let regWeixin = /^[a-zA-Z][\w\d-]{5,19}$/;
+        this.checkinfo.weixin = regWeixin.test(this.userinfo.kehu_weixin)
+          ? "success"
+          : "warning";
+      }
+    },
+    "userinfo.kehu_guhua": function() {
+      if (!this.userinfo.kehu_guhua) {
+        this.checkinfo.guhua = "";
+      } else {
+        let regGuhua = /^([0-9()-（） ]{3,7})?[\d]{7,8}$/;
+        this.checkinfo.guhua = regGuhua.test(this.userinfo.kehu_guhua)
+          ? "success"
+          : "warning";
+      }
     }
   },
   created() {
-    this.$http.get("http://vue.dev.com/data/add_kehu.php").then(
+    this.$http.get("http://crm.coolbear.wang/data/add_kehu.php").then(
       function(res) {
         if (res.data.kehu_number) {
           console.log(res);

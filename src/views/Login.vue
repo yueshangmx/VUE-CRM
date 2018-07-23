@@ -38,7 +38,7 @@ export default {
           });
           this.$http
             .post(
-              "http://vue.dev.com/data/login.php",
+              "http://crm.coolbear.wang/data/login.php",
               this.$Qs.stringify(this.userinfo)
             )
             .then(
@@ -72,7 +72,7 @@ export default {
         let regName = /[A-Za-z_\-\u4e00-\u9fa5][A-Za-z0-9_\-\u4e00-\u9fa5]{5,15}/;
         this.userinfo.nameState = regName.test(this.userinfo.name)
           ? "success"
-          : "error";
+          : "waring";
       } else {
         this.userinfo.nameState = "";
       }
@@ -82,7 +82,7 @@ export default {
         let regPwd = /\w{6,16}/;
         this.userinfo.pwdState = regPwd.test(this.userinfo.pwd)
           ? "success"
-          : "error";
+          : "warning";
       } else {
         this.userinfo.pwdState = "";
       }
