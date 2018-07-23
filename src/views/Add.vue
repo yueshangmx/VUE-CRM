@@ -73,15 +73,32 @@ export default {
       if (this.userinfo.kehu_name && this.userinfo.kehu_phone) {
         this.$http
           .post(
-            "http://crm.coolbear.wang/data/add_kehu.php",
+            "http://vue.dev.com/data/add_kehu.php",
             this.$Qs.stringify(this.userinfo)
           )
-          .then(function(res) {
-            if (res.data.result) {
-              console.log(res.data);
-              this.$router.go(0);
-            }
-          });
+          .then(
+            function(res) {
+              if (res.data.result) {
+                console.log(res);
+                if (res.data.result == true) {
+                  this.$toast({
+                    message: "成功！"
+                  });
+                } else {
+                  this.$toast({
+                    message: "添加失败！请重试...",
+                    iconClass: "iconfont icon-cuowu"
+                  });
+                }
+                // this.$router.go(0);
+              }
+            }.bind(this)
+          );
+      } else {
+        this.$toast({
+          message: "姓名和手机不能为空！",
+          iconClass: "iconfont icon-cuowu"
+        });
       }
     },
     cancelsubmit() {
@@ -134,7 +151,7 @@ export default {
         this.checkinfo.address = "";
       } else {
         let regAddr = /^[\u4e00-\u9fa5|\d]{5,60}$/;
-        this.checkinfo.address = regAddr.test(this.userinfo.kehu_email)
+        this.checkinfo.address = regAddr.test(this.userinfo.kehu_address)
           ? "success"
           : "warning";
       }
@@ -181,10 +198,9 @@ export default {
     }
   },
   created() {
-    this.$http.get("http://crm.coolbear.wang/data/add_kehu.php").then(
+    this.$http.get("http://vue.dev.com/data/add_kehu.php").then(
       function(res) {
         if (res.data.kehu_number) {
-          console.log(res);
           this.userinfo.kehu_number = parseInt(res.data.kehu_number) + 1;
         } else {
           this.$messagebox
