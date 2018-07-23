@@ -39,6 +39,7 @@ export default {
   data() {
     return {
       userinfo: {
+        user_id: "",
         kehu_number: "",
         kehu_name: "",
         kehu_phone: "",
@@ -82,15 +83,16 @@ export default {
                 console.log(res);
                 if (res.data.result == true) {
                   this.$toast({
-                    message: "成功！"
+                    message: "添加成功！",
+                    iconClass: "iconfont icon-icon31"
                   });
+                  this.$router.go(0);
                 } else {
                   this.$toast({
                     message: "添加失败！请重试...",
                     iconClass: "iconfont icon-cuowu"
                   });
                 }
-                // this.$router.go(0);
               }
             }.bind(this)
           );
@@ -198,6 +200,7 @@ export default {
     }
   },
   created() {
+    this.userinfo.user_id = JSON.parse(sessionStorage.getItem("info")).user_id;
     this.$http.get("http://vue.dev.com/data/add_kehu.php").then(
       function(res) {
         if (res.data.kehu_number) {

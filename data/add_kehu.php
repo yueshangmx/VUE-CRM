@@ -13,6 +13,7 @@ if ($method == 'GET') {
 	$sql = "SELECT `kehu_number` FROM `kehu` ORDER BY `kehu_number` DESC LIMIT 1";
 	require_once "mysqli_query.php";
 } else if($method == 'POST') {
+	$user_id = $_POST['user_id'];
 	$kehu_number = $_POST['kehu_number'];
 	$kehu_name = !empty($_POST['kehu_name']) ? $_POST['kehu_name'] : "";
 	$kehu_phone = !empty($_POST['kehu_phone']) ? $_POST['kehu_phone'] : "";
@@ -28,7 +29,7 @@ if ($method == 'GET') {
 	if(!($kehu_name && $kehu_phone)) {
 		echo '{"result": false,"msg": "添加失败！姓名或电话为空" }';
 	} else {
-		$sql = "INSERT INTO `kehu` VALUES(NULL,'$kehu_number','$kehu_name','$kehu_phone',$kehu_sex,'$kehu_birthday','$kehu_address','$kehu_beizhu','$kehu_guhua','$kehu_qq','$kehu_weixin','$kehu_email')";
+		$sql = "INSERT INTO `kehu` VALUES(NULL,'$user_id','$kehu_number','$kehu_name','$kehu_phone',$kehu_sex,'$kehu_birthday','$kehu_address','$kehu_beizhu','$kehu_guhua','$kehu_qq','$kehu_weixin','$kehu_email')";
 
 		$result = mysqli_query( $con, $sql );
 
