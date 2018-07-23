@@ -38,13 +38,10 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
+    font-size: 12px;
     i {
       font-size: 18px;
     }
-  }
-  .nav-active {
-    color: #df5420;
   }
 }
 </style>

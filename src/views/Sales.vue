@@ -19,6 +19,7 @@ export default {
 .sales {
   .nav-sales {
     color: #df5420 !important;
+    font-weight: bold;
   }
 }
 </style>

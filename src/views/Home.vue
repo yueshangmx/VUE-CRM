@@ -37,6 +37,7 @@ export default {
   }
   .nav-home {
     color: #df5420 !important;
+    font-weight: bold;
   }
 }
 </style>

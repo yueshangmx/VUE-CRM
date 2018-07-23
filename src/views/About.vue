@@ -27,6 +27,7 @@ export default {
 .about {
   .nav-about {
     color: #df5420 !important;
+    font-weight: bold;
   }
 }
 </style>

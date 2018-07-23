@@ -20,5 +20,8 @@ body {
   a {
     text-decoration: none;
   }
+  .mint-field-state.is-success {
+    color: #df5420;
+  }
 }
 </style>

@@ -3,25 +3,26 @@
     <Top title="添加客户" />
     <div class="add-kehu">
       <div class="part">
-        <mt-field label="客户编号" v-model="userinfo.kehu_number" readonly></mt-field>
-        <mt-field label="客户姓名" placeholder="请输入用户名" v-model="userinfo.kehu_name"></mt-field>
-        <mt-field label="手机号码" placeholder="请输入手机号" :attr="{maxLength:11}" type="tel" v-model="userinfo.kehu_phone"></mt-field>
-        <mt-radio
-          title="性别"
-          v-model="userinfo.kehu_sex"
-          :options="userinfo.options" @change="checksex">
-        </mt-radio>
+        <mt-field label="客户编号" v-model="userinfo.kehu_number" :state="checkinfo.number" readonly disableClear></mt-field>
+        <mt-field label="客户姓名" placeholder="请输入用户名(必填)" v-model="userinfo.kehu_name" :state="checkinfo.name"></mt-field>
+        <mt-field label="手机号码" placeholder="请输入手机号(必填)" :attr="{maxLength:11}" type="tel" v-model="userinfo.kehu_phone" :state="checkinfo.phone"></mt-field>
+        <mt-field label="性别"  :attr="{style:'display:none'}">
+          <select name="sex" class="sex" v-model="userinfo.kehu_sex">
+            <option value="0">男士</option>
+            <option value="1">女士</option>
+          </select>
+        </mt-field>
       </div>
       <div class="part">
-        <mt-field label="地址" placeholder="请输入地址" type="text" v-model="userinfo.kehu_address"></mt-field>
-        <mt-field label="邮箱" placeholder="请输入邮箱" type="email" v-model="userinfo.kehu_email"></mt-field>
-        <mt-field label="生日" placeholder="请输入生日" type="date" v-model="userinfo.kehu_birthday"></mt-field>
+        <mt-field label="生日" placeholder="请输入生日" type="date" v-model="userinfo.kehu_birthday" :state="checkinfo.birthday"></mt-field>
+        <mt-field label="邮箱" placeholder="请输入邮箱" type="email" v-model="userinfo.kehu_email" :state="checkinfo.email"></mt-field>
+        <mt-field label="地址" placeholder="请输入地址" type="text" v-model="userinfo.kehu_address" :state="checkinfo.address"></mt-field>
+        <mt-field label="备注" placeholder="备注信息" type="textarea" rows="2" v-model="userinfo.kehu_beizhu" :state="checkinfo.beizhu"></mt-field>
       </div>
       <div class="part">
-        <mt-field label="QQ" placeholder="客户QQ号" type="number" v-model="userinfo.kehu_qq"></mt-field>
-        <mt-field label="微信" placeholder="客户微信号" type="text" v-model="userinfo.kehu_weixin"></mt-field>
-        <mt-field label="手机" placeholder="客户其他手机号" type="tel" v-model="userinfo.kehu_phone2"></mt-field>
-        <mt-field label="备注" placeholder="备注信息" type="textarea" rows="2" v-model="userinfo.kehu_beizhu"></mt-field>
+        <mt-field label="QQ" placeholder="客户QQ号" type="number" v-model="userinfo.kehu_qq" :state="checkinfo.qq"></mt-field>
+        <mt-field label="微信" placeholder="客户微信号" type="text" v-model="userinfo.kehu_weixin" :state="checkinfo.weixin"></mt-field>
+        <mt-field label="固话" placeholder="客户固话" type="tel" v-model="userinfo.kehu_phone2" :state="checkinfo.phone2"></mt-field>
       </div>
     </div>
     <div class="submit">
@@ -41,17 +42,7 @@ export default {
         kehu_number: "",
         kehu_name: "",
         kehu_phone: "",
-        kehu_sex: "",
-        options: [
-          {
-            label: "男士",
-            value: "0"
-          },
-          {
-            label: "女士",
-            value: "1"
-          }
-        ],
+        kehu_sex: "0",
         kehu_birthday: "",
         kehu_address: "",
         kehu_beizhu: "",
@@ -59,6 +50,18 @@ export default {
         kehu_qq: "",
         kehu_weixin: "",
         kehu_email: ""
+      },
+      checkinfo: {
+        number: "success",
+        name: "",
+        phone: "",
+        birthday: "",
+        address: "",
+        beizhu: "",
+        phone2: "",
+        qq: "",
+        weixin: "",
+        email: ""
       }
     };
   },
@@ -67,20 +70,92 @@ export default {
   },
   methods: {
     submit() {
-      console.log(this.userinfo);
+      if (this.userinfo.kehu_name && this.userinfo.kehu_phone) {
+        this.$http
+          .post(
+            "http://vue.dev.com/data/add_kehu.php",
+            this.$Qs.stringify(this.userinfo)
+          )
+          .then(function(res) {
+            if (res.data.result) {
+              console.log(res.data);
+              this.$router.go(0);
+            }
+          });
+      }
     },
     cancelsubmit() {
       this.$router.push({ path: "/home" });
+    }
+  },
+  watch: {
+    "userinfo.kehu_name": function() {
+      if (!this.userinfo.kehu_name) {
+        this.checkinfo.name = "";
+      } else {
+        let regName = /^[\u4e00-\u9fa5]{2,5}$/;
+        this.checkinfo.name = regName.test(this.userinfo.kehu_name)
+          ? "success"
+          : "warning";
+      }
     },
-    checksex() {
-      console.log(this.userinfo);
+    "userinfo.kehu_phone": function() {
+      if (!this.userinfo.kehu_phone) {
+        this.checkinfo.phone = "";
+      } else {
+        let regPhone = /^0?(13|14|15|16|17|18|19)[0-9]{9}$/;
+        this.checkinfo.phone = regPhone.test(this.userinfo.kehu_phone)
+          ? "success"
+          : "warning";
+      }
+    },
+    "userinfo.kehu_birthday": function() {
+      if (!this.userinfo.kehu_birthday) {
+        this.checkinfo.birthday = "";
+      } else {
+        let regBirth = /^\d{4}(\\-|\/|.)[0|1][\d]\1[0-3][\d]$/;
+        this.checkinfo.birthday = regBirth.test(this.userinfo.kehu_birthday)
+          ? "success"
+          : "warning";
+      }
+    },
+    "userinfo.kehu_email": function() {
+      if (!this.userinfo.kehu_email) {
+        this.checkinfo.email = "";
+      } else {
+        let regEmail = /^\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}$/;
+        this.checkinfo.email = regEmail.test(this.userinfo.kehu_email)
+          ? "success"
+          : "warning";
+      }
+    },
+    "userinfo.kehu_address": function() {
+      if (!this.userinfo.kehu_address) {
+        this.checkinfo.address = "";
+      } else {
+        let regAddr = /^[\u4e00-\u9fa5|\d]{5,60}$/;
+        this.checkinfo.address = regAddr.test(this.userinfo.kehu_email)
+          ? "success"
+          : "warning";
+      }
+    },
+    "userinfo.kehu_beizhu": function() {
+      if (!this.userinfo.kehu_beizhu) {
+        this.checkinfo.beizhu = "";
+      } else {
+        let regBeizhu = /^[\S]{0,250}$/;
+        this.checkinfo.beizhu = regBeizhu.test(this.userinfo.kehu_beizhu)
+          ? "success"
+          : "warning";
+      }
     }
   },
   created() {
     this.$http.get("http://vue.dev.com/data/add_kehu.php").then(
       function(res) {
         if (res.data.kehu_number) {
-          this.userinfo.kehu_number = res.data.kehu_number;
+          console.log(res);
+          this.userinfo.kehu_number = parseInt(res.data.kehu_number) + 1;
         } else {
           this.$messagebox
             .confirm("获取服务器信息失败，是否重试？")
@@ -97,16 +172,27 @@ export default {
 <style lang="less">
 .add {
   .add-kehu {
-    margin-bottom: 65px;
+    margin-bottom: 62px;
     .part {
       margin-bottom: 10px;
-      .mint-radiolist {
-        text-align: left;
-      }
       .mint-field {
         .mint-field-core {
-          padding-right: 20px;
-          text-align: right;
+          padding-left: 10%;
+        }
+        span.mint-field-state.is-success,
+        span.mint-field-state.is-warning {
+          right: 8px;
+          position: absolute;
+        }
+        .mint-field-other {
+          padding-left: 10%;
+          .sex {
+            border: 0;
+            font-size: 16px;
+            height: 25px;
+            color: #333;
+            width: 60px;
+          }
         }
       }
     }
