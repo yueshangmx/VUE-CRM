@@ -1,11 +1,11 @@
 <template>
-  <div class="details">
+  <div class="c-details">
     <mt-header title="客户详情">
       <router-link to="/consumer" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
     </mt-header>
-    <div class="d-top">
+    <div class="c-top">
       <div class="base">
         <div class="b-left">
           <i class="iconfont icon-kehuguanli"></i>
@@ -22,14 +22,14 @@
         </div>
       </div>
     </div>
-    <div class="d-main">
-      <div class="d-part">
+    <div class="c-main">
+      <div class="c-part">
         <mt-field label="手机号码" type="tel" v-model="userinfo.kehu_phone" readonly disableClear></mt-field>
         <mt-field label="QQ" type="number" v-model="userinfo.kehu_qq" readonly disableClear></mt-field>
         <mt-field label="微信" type="text" v-model="userinfo.kehu_weixin" readonly disableClear></mt-field>
         <mt-field label="邮箱" type="email" v-model="userinfo.kehu_email" readonly disableClear></mt-field>
       </div>
-      <div class="d-part">
+      <div class="c-part">
         <mt-field label="生日" type="text" v-model="userinfo.kehu_birthday" readonly disableClear></mt-field>
         <mt-field label="固话" type="tel" v-model="userinfo.kehu_guhua" readonly disableClear></mt-field>
         <mt-field label="地址" type="text" v-model="userinfo.kehu_address" readonly disableClear></mt-field>
@@ -69,7 +69,7 @@ export default {
   .mint-header {
     background-color: #df5420;
   }
-  .d-top {
+  .c-top {
     .base {
       padding: 5px 10px;
       display: flex;
@@ -107,8 +107,8 @@ export default {
       }
     }
   }
-  .d-main {
-    .d-part {
+  .c-main {
+    .c-part {
       margin-bottom: 15px;
       .mint-field {
         .mint-field-core {

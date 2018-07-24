@@ -6,7 +6,7 @@
       <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore">
         <ul class="list">
           <li v-for="(item,index) in list" :key="index">
-            <router-link :to="'/cdetails/'+item.id">
+            <router-link :to="'/consumer-details/'+item.id">
               <div class="d-left">
                 <i class="iconfont icon-kehuguanli"></i>
                 <div class="d-name-p">

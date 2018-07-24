@@ -62,12 +62,12 @@ export default new Router({
       component: Member
     },
     {
-      path: "/cdetails/:id",
+      path: "/consumer-details/:id",
       name: "cdetails",
       component: Cdetails
     },
     {
-      path: "/mdetails/:id",
+      path: "/member-details/:id",
       name: "mdetails",
       component: Mdetails
     },
