@@ -5,21 +5,28 @@
  * Date: 2018/7/23
  * Time: 16:56
  */
-require_once "connect.php";
+require "connect.php";
 
-$start = !empty($_REQUEST['start']) ? $_REQUEST['start'] : 0;
+$user_id = $_POST['user_id'];
 
-$count = 10;
+if(isset($_POST['start'])) {
+	$start = $_POST['start'];
+	$count = $_POST['count'];
+	$sql = "SELECT id,kehu_name,kehu_phone,kehu_vip_id FROM `kehu` WHERE user_id='$user_id' ORDER BY id LIMIT $start,$count";
+	$result = mysqli_query($con,$sql);
 
-$sql = "SELECT * FROM `kehu` LIMIT 0,10";
+	$res = [];
+	while (($row = mysqli_fetch_assoc($result))!==NULL){
+		$res[] = $row;
+	};
+	echo json_encode($res);
+} else {
+	$sql = "SELECT id FROM `kehu` WHERE user_id='$user_id'";
+	$result = mysqli_query($con,$sql);
+	$total = mysqli_num_rows($result);
+	echo '{"total":'.$total.'}';
+}
 
-$result = mysqli_query($con,$sql);
 
-$res = [];
-while (($row = mysqli_fetch_assoc($result))!==NULL){
-	$res[] = $row;
-};
-
-echo json_encode($res);
 
 

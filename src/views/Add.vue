@@ -112,7 +112,7 @@ export default {
       if (!this.userinfo.kehu_name) {
         this.checkinfo.name = "";
       } else {
-        let regName = /^[\u4e00-\u9fa5]{2,5}$/;
+        let regName = /^[\u4e00-\u9fa5\w-]{4,50}$/;
         this.checkinfo.name = regName.test(this.userinfo.kehu_name)
           ? "success"
           : "warning";

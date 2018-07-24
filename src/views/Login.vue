@@ -46,6 +46,7 @@ export default {
                 if (res.data.user_token) {
                   this.$indicator.close();
                   this.$toast("登录成功！");
+                  this.$store.commit("updateUserInfo", res.data);
                   this.$Global.setCookie("token", res.data.user_token, 0.5);
                   sessionStorage.setItem("info", JSON.stringify(res.data));
                   this.$router.replace({ path: "/home" });

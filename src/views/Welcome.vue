@@ -38,30 +38,27 @@ export default {
 </script>
 
 <style lang="less">
-body {
-  margin: 0;
-  .welcome {
-    .content {
-      z-index: 99;
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      top: 30%;
-      i {
-        font-size: 8rem;
-        color: #fff;
-      }
-      p {
-        color: #f2f2f2;
-      }
+.welcome {
+  .content {
+    z-index: 99;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 30%;
+    i {
+      font-size: 8rem;
+      color: #fff;
     }
-    .bg {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      z-index: -99;
-      background: linear-gradient(#ffa500, #df5420);
+    p {
+      color: #f2f2f2;
     }
+  }
+  .bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -99;
+    background: linear-gradient(#ffa500, #df5420);
   }
 }
 </style>

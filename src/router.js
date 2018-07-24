@@ -9,6 +9,7 @@ import Add from "./views/Add.vue";
 import Consumer from "./views/Consumer";
 import Goods from "./views/Goods";
 import Member from "./views/Member";
+import Details from "./views/Details";
 
 Vue.use(Router);
 
@@ -58,6 +59,11 @@ export default new Router({
       path: "/member",
       name: "member",
       component: Member
+    },
+    {
+      path: "/details/:id",
+      name: "Udetails",
+      component: Details
     },
     {
       path: "*",

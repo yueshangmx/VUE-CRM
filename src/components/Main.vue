@@ -36,6 +36,7 @@ export default {
         message: "更多功能敬请期待！",
         duration: 1000
       });
+      console.log(this.$store.state.userinfo);
     }
   }
 };

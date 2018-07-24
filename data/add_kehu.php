@@ -7,7 +7,7 @@
  */
 
 $method = $_SERVER['REQUEST_METHOD'];
-require_once "connect.php";
+require "connect.php";
 
 if ($method == 'GET') {
 	$sql = "SELECT `kehu_number` FROM `kehu` ORDER BY `kehu_number` DESC LIMIT 1";
@@ -25,11 +25,12 @@ if ($method == 'GET') {
 	$kehu_weixin = !empty($_POST['kehu_weixin']) ? $_POST['kehu_weixin'] : "";
 	$kehu_email = !empty($_POST['kehu_email']) ? $_POST['kehu_email'] : "";
 	$kehu_beizhu = !empty($_POST['kehu_beizhu']) ? $_POST['kehu_beizhu'] : "";
+	$kehu_vip_id = !empty($_POST['kehu_vip']) ? "1": "0";
 
 	if(!($kehu_name && $kehu_phone)) {
 		echo '{"result": false,"msg": "添加失败！姓名或电话为空" }';
 	} else {
-		$sql = "INSERT INTO `kehu` VALUES(NULL,'$user_id','$kehu_number','$kehu_name','$kehu_phone',$kehu_sex,'$kehu_birthday','$kehu_address','$kehu_beizhu','$kehu_guhua','$kehu_qq','$kehu_weixin','$kehu_email')";
+		$sql = "INSERT INTO `kehu` VALUES(NULL,'$user_id','$kehu_number','$kehu_name','$kehu_phone',$kehu_sex,'$kehu_birthday','$kehu_address','$kehu_beizhu','$kehu_guhua','$kehu_qq','$kehu_weixin','$kehu_email','$kehu_vip_id')";
 
 		$result = mysqli_query( $con, $sql );
 
@@ -38,13 +39,7 @@ if ($method == 'GET') {
 		);
 	}
 }
-
-
-if($res){
-	echo json_encode($res);
-}else{
-	echo '{"result":false}';
-}
+echo json_encode($res);
 
 
 

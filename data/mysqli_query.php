@@ -7,6 +7,10 @@
  */
 $result = mysqli_query( $con, $sql );
 
-$res= mysqli_fetch_assoc( $result );
-
-sleep(1);
+if($result){
+	$res= mysqli_fetch_assoc( $result );
+} else {
+	$res = array(
+		"result" => false
+	);
+}

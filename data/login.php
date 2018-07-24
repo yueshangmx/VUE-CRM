@@ -5,7 +5,7 @@
  * Date: 2018/6/22
  * Time: 11:40
  */
-require_once "connect.php";
+require "connect.php";
 
 $token = $_POST['token'];
 $name  = !empty($_POST['name']) ? $_POST['name'] : "";
