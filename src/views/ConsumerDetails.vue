@@ -65,7 +65,7 @@ export default {
 </script>
 
 <style lang="less">
-.details {
+.c-details {
   .mint-header {
     background-color: #df5420;
   }
