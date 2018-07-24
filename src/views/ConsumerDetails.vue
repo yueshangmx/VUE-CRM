@@ -41,7 +41,7 @@
 
 <script>
 export default {
-  name: "Udetails",
+  name: "cdetails",
   data() {
     return {
       userinfo: []
