@@ -63,12 +63,12 @@ export default new Router({
     },
     {
       path: "/consumer-details/:id",
-      name: "cdetails",
+      name: "consumer-details",
       component: Cdetails
     },
     {
       path: "/member-details/:id",
-      name: "mdetails",
+      name: "member-details",
       component: Mdetails
     },
     {
