@@ -43,8 +43,8 @@ new Vue({
 }).$mount("#app");
 
 router.beforeEach((to, from, next) => {
-  let token = sessionStorage.getItem("info");
-  if (!token && to.path != "/login") {
+  let info = sessionStorage.getItem("info");
+  if (!info && to.path != "/login") {
     next({ path: "/login" });
   } else {
     next();

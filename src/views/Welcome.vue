@@ -12,23 +12,25 @@
 export default {
   name: "Welcome",
   created() {
+    let that = this;
     let _token = this.$Global.getCookie("token");
     if (_token) {
       this.$http
         .post(
-          "http://vue.dev.com/data/login.php",
+          this.$store.state.SERVER + "/data/login.php",
           this.$Qs.stringify({ token: _token })
         )
         .then(
           function(res) {
             if (res.data.user_token) {
-              sessionStorage.setItem("info", JSON.stringify(res.data));
-              this.$router.replace({ path: "/home" });
+              this.$store.commit("LOGIN", res.data);
+              setTimeout(function() {
+                that.$router.replace({ path: "/home" });
+              }, 3000);
             }
           }.bind(this)
         );
     } else {
-      let that = this;
       setTimeout(function() {
         that.$router.replace({ path: "/login" });
       }, 3000);

@@ -66,7 +66,7 @@ export default {
     loadList(data) {
       this.$http
         .post(
-          "http://vue.dev.com/data/consumerlist.php",
+          this.$store.state.SERVER + "/data/consumerlist.php",
           this.$Qs.stringify(data)
         )
         .then(

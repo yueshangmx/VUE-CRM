@@ -10,7 +10,8 @@ import Consumer from "./views/Consumer";
 import Goods from "./views/Goods";
 import Member from "./views/Member";
 import Cdetails from "./views/ConsumerDetails";
-import Mdetails from "./views/MemberDetails"
+import Mdetails from "./views/MemberDetails";
+import Addmember from "./views/AddMember";
 
 Vue.use(Router);
 
@@ -60,6 +61,11 @@ export default new Router({
       path: "/member",
       name: "member",
       component: Member
+    },
+    {
+      path: "/addmember",
+      name: "addmember",
+      component: Addmember
     },
     {
       path: "/consumer-details/:id",

@@ -28,6 +28,7 @@ export default {
   methods: {
     login() {
       if (this.userinfo.name && this.userinfo.pwd) {
+        let that = this;
         if (
           this.userinfo.nameState == "success" &&
           this.userinfo.pwdState == "success"
@@ -38,7 +39,7 @@ export default {
           });
           this.$http
             .post(
-              "http://vue.dev.com/data/login.php",
+              this.$store.state.SERVER + "/data/login.php",
               this.$Qs.stringify(this.userinfo)
             )
             .then(
@@ -46,9 +47,8 @@ export default {
                 if (res.data.user_token) {
                   this.$indicator.close();
                   this.$toast("登录成功！");
-                  this.$store.commit("updateUserInfo", res.data);
                   this.$Global.setCookie("token", res.data.user_token, 0.5);
-                  sessionStorage.setItem("info", JSON.stringify(res.data));
+                  this.$store.commit("LOGIN", res.data);
                   this.$router.replace({ path: "/home" });
                 } else {
                   this.$indicator.close();
@@ -57,6 +57,8 @@ export default {
               }.bind(this)
             )
             .catch(function(err) {
+              that.$indicator.close();
+              that.$toast("网络错误! ");
               console.log(err);
             });
         } else {

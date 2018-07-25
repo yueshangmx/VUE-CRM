@@ -72,16 +72,18 @@ export default {
   methods: {
     submit() {
       if (this.userinfo.kehu_name && this.userinfo.kehu_phone) {
-        this.$http
-          .post(
-            "http://vue.dev.com/data/add_kehu.php",
-            this.$Qs.stringify(this.userinfo)
-          )
-          .then(
-            function(res) {
-              if (res.data.result) {
-                console.log(res);
-                if (res.data.result == true) {
+        if (
+          this.checkinfo.name == "success" &&
+          this.checkinfo.phone == "success"
+        ) {
+          this.$http
+            .post(
+              this.$store.state.SERVER + "/data/add_kehu.php",
+              this.$Qs.stringify(this.userinfo)
+            )
+            .then(
+              function(res) {
+                if (res.data.result) {
                   this.$toast({
                     message: "添加成功！",
                     iconClass: "iconfont icon-icon31"
@@ -93,9 +95,14 @@ export default {
                     iconClass: "iconfont icon-cuowu"
                   });
                 }
-              }
-            }.bind(this)
-          );
+              }.bind(this)
+            );
+        } else {
+          this.$toast({
+            message: "姓名或手机格式不正确！请检查后重试...",
+            iconClass: "iconfont icon-cuowu"
+          });
+        }
       } else {
         this.$toast({
           message: "姓名和手机不能为空！",
@@ -112,7 +119,7 @@ export default {
       if (!this.userinfo.kehu_name) {
         this.checkinfo.name = "";
       } else {
-        let regName = /^[\u4e00-\u9fa5\w-]{4,50}$/;
+        let regName = /^[\u4e00-\u9fa5\w-]{2,50}$/;
         this.checkinfo.name = regName.test(this.userinfo.kehu_name)
           ? "success"
           : "warning";
@@ -201,7 +208,7 @@ export default {
   },
   created() {
     this.userinfo.user_id = JSON.parse(sessionStorage.getItem("info")).user_id;
-    this.$http.get("http://vue.dev.com/data/add_kehu.php").then(
+    this.$http.get(this.$store.state.SERVER + "/data/add_kehu.php").then(
       function(res) {
         if (res.data.kehu_number) {
           this.userinfo.kehu_number = parseInt(res.data.kehu_number) + 1;

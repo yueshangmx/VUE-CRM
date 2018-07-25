@@ -13,12 +13,10 @@
         <i class="iconfont icon-shangpinguanli"></i>
         商品管理
       </router-link>
-      <router-link to="/member" class="link">
+      <router-link to="/member" class="link" v-if="this.$store.state.userinfo.user_group_id != 4">
         <i class="iconfont icon-yuangongguanli"></i>
         员工管理
       </router-link>
-    </div>
-    <div class="one more">
       <a href="javascript:;" class="link" @click="waiting">
         <i class="iconfont icon-jiahao"></i>
         更多
@@ -38,6 +36,14 @@ export default {
       });
       console.log(this.$store.state.userinfo);
     }
+  },
+  created() {
+    if (!this.$store.state.userinfo.user_id) {
+      this.$store.commit(
+        "updateUserInfo",
+        JSON.parse(sessionStorage.getItem("info"))
+      );
+    }
   }
 };
 </script>
@@ -45,17 +51,17 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
 .main {
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 15px;
+  margin-right: 15px;
   margin-top: 20px;
   .one {
-    margin-bottom: 20px;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
     .link {
-      width: 56px;
+      width: 25%;
+      margin-bottom: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;

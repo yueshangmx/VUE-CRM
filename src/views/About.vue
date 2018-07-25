@@ -6,6 +6,7 @@
       <p>版本 v0.2</p>
       <p>合作联系电话：<a href="tel:0551-64275530" type="t">0551-64275530</a></p>
     </div>
+    <mt-button type="primary" @click="logout">退出登录</mt-button>
     <Foot />
   </div>
 </template>
@@ -19,6 +20,13 @@ export default {
   components: {
     Foot,
     Head
+  },
+  methods: {
+    logout() {
+      window.sessionStorage.removeItem("info");
+      this.$Global.delCookie("token");
+      this.$router.replace({ path: "/login" });
+    }
   }
 };
 </script>

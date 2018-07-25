@@ -51,7 +51,7 @@ export default {
     let user_id = this.$route.params.id;
     this.$http
       .post(
-        "http://vue.dev.com/data/consumerdetails.php",
+        this.$store.state.SERVER + "/data/consumerdetails.php",
         this.$Qs.stringify({ id: user_id })
       )
       .then(
