@@ -27,9 +27,9 @@
         </mt-field>
         <mt-field label="员工权限" :attr="{style:'display:none'}">
           <select name="group" class="am-group" v-model="member.group">
-            <option value="1">管理员</option>
-            <option value="2">店长</option>
-            <option value="3">员工</option>
+            <option value="2">管理员</option>
+            <option value="3">店长</option>
+            <option value="4">员工</option>
           </select>
         </mt-field>
       </div>
@@ -52,7 +52,7 @@ export default {
         password: "",
         sex: "0",
         dept: "",
-        group: "3",
+        group: "4",
         parent_id: ""
       },
       checkmember: {
