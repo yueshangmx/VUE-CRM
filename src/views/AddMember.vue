@@ -105,7 +105,6 @@ export default {
       .then(
         function(res) {
           if (res) {
-            console.log(res);
             this.deptlist = res.data;
             this.member.dept = res.data[0].dept_id;
           } else {

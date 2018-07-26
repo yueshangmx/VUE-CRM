@@ -72,7 +72,7 @@ export default {
   watch: {
     "userinfo.name": function() {
       if (this.userinfo.name) {
-        let regName = /[A-Za-z_\-\u4e00-\u9fa5][A-Za-z0-9_\-\u4e00-\u9fa5]{5,15}/;
+        let regName = /[A-Za-z0-9_\-\u4e00-\u9fa5]{5,15}/;
         this.userinfo.nameState = regName.test(this.userinfo.name)
           ? "success"
           : "waring";
