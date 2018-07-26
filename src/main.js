@@ -43,7 +43,7 @@ new Vue({
 }).$mount("#app");
 
 router.beforeEach((to, from, next) => {
-  let info = JSON.parse(sessionStorage.getItem("info")).user_id;
+  let info = JSON.parse(sessionStorage.getItem("info"));
   if (!info && to.path != "/login") {
     next({ path: "/login" });
   } else {

@@ -13,16 +13,16 @@
           <li v-for="(item,index) in grouplist" :key="index" class="item-list">
             <div class="g-lefr">{{item.dept_name}}</div>
             <div class="g-right">
-              <i class="iconfont icon-yijianfankui" @click="editGroup"></i>
-              <i class="iconfont icon-delete" @click="deleteGroup"></i>
+              <i class="iconfont icon-yijianfankui" @click="editGroup(item.dept_name,item.dept_id)"></i>
+              <i class="iconfont icon-delete" @click="deleteGroup(item.dept_id)"></i>
             </div>
           </li>
         </ul>
       </mt-loadmore>
     </div>
-    <router-link to="/addMember" class="g-add" >
+    <div class="g-add" @click="addGroup">
       <i class="iconfont icon-jiajianzujianjiahao"></i>
-    </router-link>
+    </div>
   </div>
 </template>
 
@@ -43,7 +43,6 @@ export default {
         )
         .then(
           function(res) {
-            console.log(res);
             this.grouplist = res.data;
           }.bind(this)
         );
@@ -52,11 +51,94 @@ export default {
       this.getGrouplist();
       this.$refs.loadmore.onTopLoaded();
     },
-    editGroup() {
-      console.log(this);
+    editGroup(name, id) {
+      this.$messagebox.prompt("确定将" + name + "更名吗？", "").then(data => {
+        this.$http
+          .post(
+            this.$store.state.SERVER + "/data/group.php",
+            this.$Qs.stringify({
+              user_id: this.$store.state.userinfo.user_id,
+              dept_id: id,
+              new_dept_name: data.value
+            })
+          )
+          .then(
+            function(res) {
+              console.log(res);
+              if (res.data) {
+                this.$toast({
+                  message: "修改成功！",
+                  iconClass: "iconfont icon-icon31"
+                });
+                this.getGrouplist();
+              } else {
+                this.$toast({
+                  message: "修改失败",
+                  iconClass: "iconfont icon-cuowu"
+                });
+              }
+            }.bind(this)
+          );
+      });
     },
-    deleteGroup() {
-      console.log(this);
+    deleteGroup(data) {
+      this.$messagebox.confirm("确定删除此部门吗？").then(() => {
+        this.$http
+          .post(
+            this.$store.state.SERVER + "/data/group.php",
+            this.$Qs.stringify({
+              user_id: this.$store.state.userinfo.user_id,
+              dept_id: data
+            })
+          )
+          .then(
+            function(res) {
+              if (res.data) {
+                this.$toast({
+                  message: "删除成功！",
+                  iconClass: "iconfont icon-icon31"
+                });
+                this.getGrouplist();
+              } else {
+                this.$toast({
+                  message: "删除失败",
+                  iconClass: "iconfont icon-cuowu"
+                });
+              }
+            }.bind(this)
+          );
+      });
+    },
+    addGroup() {
+      this.$messagebox.prompt("请输入部门名称", "").then(data => {
+        console.log(data.value);
+        let new_name = data.value;
+        this.$http
+          .post(
+            this.$store.state.SERVER + "/data/group.php",
+            this.$Qs.stringify({
+              user_id: this.$store.state.userinfo.user_id,
+              new_dept_name: new_name
+            })
+          )
+          .then(
+            function(res) {
+              console.log(res);
+              if (res.data) {
+                this.$toast({
+                  message: "添加成功！",
+                  iconClass: "iconfont icon-icon31"
+                });
+                this.getGrouplist();
+              } else {
+                this.$toast({
+                  message: "添加失败",
+                  iconClass: "iconfont icon-cuowu"
+                });
+              }
+            }.bind(this)
+          );
+      });
     }
   },
   created() {
