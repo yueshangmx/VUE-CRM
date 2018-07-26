@@ -103,8 +103,9 @@ export default {
     .m-list {
       list-style: none;
       background-color: #fff;
-      margin-top: 0;
+      margin: 0;
       padding-left: 10px;
+      padding-bottom: 100%;
       li {
         border-bottom: 1px solid #ccc;
         padding: 10px 10px 10px 0;

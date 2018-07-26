@@ -15,11 +15,14 @@ export default {
     };
   },
   created() {
-    let userinfo = JSON.parse(sessionStorage.getItem("info"));
+    if (!this.$store.state.userinfo.user_id) {
+      this.$store.commit("updateUserInfo");
+    }
+    let userinfo = this.$store.state.userinfo;
     if (!userinfo || !userinfo.user_name) {
       this.$router.replace({ path: "/login" });
     } else {
-      this.username = userinfo.user_name.toUpperCase();
+      this.username = userinfo.user_store_name.toUpperCase();
     }
   }
 };
