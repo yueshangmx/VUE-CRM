@@ -1,5 +1,7 @@
 <template>
-  <div class="m-details"></div>
+  <div class="m-details">
+    <h2>员工详情</h2>
+  </div>
 </template>
 
 <script>

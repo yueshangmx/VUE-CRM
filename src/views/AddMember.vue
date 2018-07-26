@@ -190,6 +190,7 @@ export default {
             .am-group {
               border: 0;
               height: 40px;
+              background-color: #fff;
             }
           }
         }

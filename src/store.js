@@ -9,8 +9,8 @@ export default new Vuex.Store({
     userinfo: {}
   },
   mutations: {
-    updateUserInfo(state, data) {
-      this.state.userinfo = data;
+    updateUserInfo() {
+      this.state.userinfo = JSON.parse(window.sessionStorage.getItem("info"));
     },
     LOGIN(state, data) {
       this.state.userinfo = data;

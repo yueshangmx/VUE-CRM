@@ -234,6 +234,7 @@ export default {
       .mint-field {
         .mint-field-core {
           padding-left: 10%;
+          background-color: #fff;
         }
         span.mint-field-state.is-success,
         span.mint-field-state.is-warning {
@@ -245,9 +246,9 @@ export default {
           .sex {
             border: 0;
             font-size: 16px;
-            height: 25px;
+            height: 40px;
             color: #333;
-            width: 60px;
+            background-color: #fff;
           }
         }
       }

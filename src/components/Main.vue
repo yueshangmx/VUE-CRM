@@ -39,10 +39,7 @@ export default {
   },
   created() {
     if (!this.$store.state.userinfo.user_id) {
-      this.$store.commit(
-        "updateUserInfo",
-        JSON.parse(sessionStorage.getItem("info"))
-      );
+      this.$store.commit("updateUserInfo");
     }
   }
 };

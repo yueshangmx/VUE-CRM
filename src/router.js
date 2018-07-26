@@ -12,6 +12,8 @@ import Member from "./views/Member";
 import Cdetails from "./views/ConsumerDetails";
 import Mdetails from "./views/MemberDetails";
 import Addmember from "./views/AddMember";
+import Group from "./views/Group";
+import Setgroup from "./views/Setgroup";
 
 Vue.use(Router);
 
@@ -66,6 +68,16 @@ export default new Router({
       path: "/addmember",
       name: "addmember",
       component: Addmember
+    },
+    {
+      path: "/group",
+      name: "group",
+      component: Group
+    },
+    {
+      path: "/setgroup",
+      name: "setgroup",
+      component: Setgroup
     },
     {
       path: "/consumer-details/:id",

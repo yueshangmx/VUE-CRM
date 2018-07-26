@@ -71,11 +71,18 @@ export default {
         )
         .then(
           function(res) {
-            if (res.data.total) {
-              this.total = res.data.total;
+            if (res.data) {
+              if (res.data.total) {
+                this.total = res.data.total;
+              } else {
+                this.list = this.list.concat(res.data);
+                this.start += 10;
+              }
             } else {
-              this.list = this.list.concat(res.data);
-              this.start += 10;
+              this.$toast({
+                message: "服务器响应错误！",
+                iconClass: "iconfont icon-cuowu"
+              });
             }
           }.bind(this)
         );
