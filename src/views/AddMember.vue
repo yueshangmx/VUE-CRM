@@ -77,10 +77,22 @@ export default {
       if (!this.member.username) {
         this.checkmember.uname = "";
       } else {
-        let reg = /^[\w]{3,10}$/;
-        this.checkmember.uname = reg.test(this.member.username)
-          ? "success"
-          : "warning";
+        let reg = /^[\w]{5,10}$/;
+        let namecheck = reg.test(this.member.username);
+        this.$http
+          .post(
+            this.$store.state.SERVER + "/data/checkusername.php",
+            this.$Qs.stringify({ user_name: this.member.username })
+          )
+          .then(
+            function(res) {
+              if (res.data) {
+                this.checkmember.uname = "warning";
+              } else {
+                this.checkmember.uname = namecheck ? "success" : "warning";
+              }
+            }.bind(this)
+          );
       }
     },
     "member.password": function() {

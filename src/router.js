@@ -14,6 +14,7 @@ import Mdetails from "./views/MemberDetails";
 import Addmember from "./views/AddMember";
 import Group from "./views/Group";
 import Setgroup from "./views/Setgroup";
+import Addgoods from "./views/AddGoods";
 
 Vue.use(Router);
 
@@ -68,6 +69,11 @@ export default new Router({
       path: "/addmember",
       name: "addmember",
       component: Addmember
+    },
+    {
+      path: "/addgoods",
+      name: "addgoods",
+      component: Addgoods
     },
     {
       path: "/group",

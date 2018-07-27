@@ -72,7 +72,7 @@ export default {
   watch: {
     "userinfo.name": function() {
       if (this.userinfo.name) {
-        let regName = /[A-Za-z0-9_\-\u4e00-\u9fa5]{5,15}/;
+        let regName = /^[\w]{5,10}$/;
         this.userinfo.nameState = regName.test(this.userinfo.name)
           ? "success"
           : "waring";
@@ -82,7 +82,7 @@ export default {
     },
     "userinfo.pwd": function() {
       if (this.userinfo.pwd) {
-        let regPwd = /\w{6,16}/;
+        let regPwd = /^[\w\-\W]{6,16}$/;
         this.userinfo.pwdState = regPwd.test(this.userinfo.pwd)
           ? "success"
           : "warning";
