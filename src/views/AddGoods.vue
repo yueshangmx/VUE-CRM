@@ -9,7 +9,7 @@
     </div>
     <div class="ag-main">
       <ul class="ag-pic">
-        <li class="pic-list" v-for="(item,index) in piclist" :key="index" v-if="piclist.length>0">
+        <li class="pic-list" v-for="(item,index) in piclist" :key="index" v-if="item.isshow">
           <img :src="item.src" alt="">
         </li>
         <li class="pic-add">
@@ -37,7 +37,7 @@ export default {
         beizhu: ""
       },
       piclist: [],
-      picflag: true
+      picflag: true,
     };
   },
   methods: {
@@ -54,7 +54,26 @@ export default {
         reader.readAsDataURL(files[i]);
         reader.onload = function() {
           if (that.piclist.length < 5) {
-            that.piclist.push({ src: this.result });
+            that.$http
+              .post(
+                that.$store.state.SERVER + "/data/uploadimg.php",
+                that.$Qs.stringify({
+                  ishow: false,
+                  src: this.result
+                })
+              )
+              .then(function(res) {
+                console.log(res);
+                if (res.data) {
+                  that.piclist.push(res.data);
+                  that.showpic = true;
+                } else {
+                  that.$toast({
+                    message: "图片上传失败！",
+                    iconClass: "iconfont icon-cuowu"
+                  });
+                }
+              });
           }
           if (that.piclist.length == 5) that.picflag = false;
         };
