@@ -5,6 +5,9 @@
         <router-link to="/goods" slot="left">
           <mt-button icon="back"></mt-button>
         </router-link>
+        <mt-button slot="right">
+          <i class="iconfont icon-shezhi" @click="addFenlei"></i>
+        </mt-button>
       </mt-header>
     </div>
     <div class="ag-main">
@@ -17,7 +20,18 @@
           <button class="btn" @click.stop="addpic" v-show="picflag"><i class="iconfont icon-jiajianzujianjiahao"></i></button>
         </li>
       </ul>
-      <mt-field type="text" label="商品名称" placeholder="必填"></mt-field>
+      <div class="ag-part">
+        <mt-field type="text" label="商品名称" v-model="goodsinfo.name" placeholder="必填"></mt-field>
+        <mt-field type="text" label="商品分类" v-model="goodsinfo.fenlei" placeholder="必填"></mt-field>
+      </div>
+      <div class="ag-part">
+        <mt-field type="text" label="商品进价" v-model="goodsinfo.jinjia" placeholder="0.00"></mt-field>
+        <mt-field type="text" label="商品售价" v-model="goodsinfo.price" placeholder="0.00"></mt-field>
+        <mt-field type="text" label="商品库存" v-model="goodsinfo.inventory" placeholder="0">台</mt-field>
+      </div>
+      <div class="ag-part">
+        <mt-field type="textarea" label="备注" v-model="goodsinfo.beizhu" placeholder="商品备注"></mt-field>
+      </div>
     </div>
   </div>
 </template>
@@ -33,13 +47,26 @@ export default {
         name: "",
         jinjia: "",
         price: "",
-        inventory: "",
+        inventory: "0",
         fenlei: "",
-        beizhu: ""
+        beizhu: "",
+        imgarr: []
+      },
+      checkinfo: {
+        name: "",
+        price: ""
       },
       piclist: [],
       picflag: true
     };
+  },
+  watch: {
+    piclist: {
+      handler() {
+        console.log(this.goodsinfo.imgarr);
+      },
+      deep: true
+    }
   },
   methods: {
     addpic() {
@@ -91,7 +118,6 @@ export default {
           that.$Qs.stringify(data)
         )
         .then(function(res) {
-          console.log(res.data);
           if (res.data.goods_id) {
             that.goodsinfo.id = res.data.goods_id;
             for (let index in that.piclist) {
@@ -113,6 +139,9 @@ export default {
             }
           }
         });
+    },
+    addFenlei() {
+      console.log(this.goodsinfo);
     }
   },
   created() {
@@ -128,6 +157,11 @@ export default {
   .ag-top {
     .mint-header {
       background-color: #df5420;
+      .mint-header-button {
+        .icon-shezhi {
+          font-size: 18px;
+        }
+      }
     }
   }
   .ag-main {
@@ -166,6 +200,9 @@ export default {
           }
         }
       }
+    }
+    .ag-part {
+      margin-bottom: 15px;
     }
   }
   .mint-cell-wrapper {

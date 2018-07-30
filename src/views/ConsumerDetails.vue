@@ -11,8 +11,8 @@
           <i class="iconfont icon-kehuguanli"></i>
           <div class="n-v-n">
             <div class="b-name">{{userinfo.kehu_name}}</div>
-            <span class="b-v" v-if="userinfo.kehu_vip_id == 1">普通会员</span>
-            <span class="b-v" v-if="userinfo.kehu_vip_id == 2">VIP会员</span>
+            <span class="b-v" v-if="userinfo.kehu_vip_id === 1">普通会员</span>
+            <span class="b-v" v-if="userinfo.kehu_vip_id === 2">VIP会员</span>
             |
             <span class="b-n">卡号:{{userinfo.kehu_number}}</span>
           </div>
@@ -56,7 +56,6 @@ export default {
       )
       .then(
         function(res) {
-          console.log(res);
           this.userinfo = res.data;
         }.bind(this)
       );

@@ -13,7 +13,7 @@
         <i class="iconfont icon-shangpinguanli"></i>
         商品管理
       </router-link>
-      <router-link to="/member" class="link" v-if="this.$store.state.userinfo.user_group_id != 4">
+      <router-link to="/member" class="link" v-if="this.$store.state.userinfo.user_group_id !== 4">
         <i class="iconfont icon-yuangongguanli"></i>
         员工管理
       </router-link>
@@ -34,7 +34,6 @@ export default {
         message: "更多功能敬请期待！",
         duration: 1000
       });
-      console.log(this.$store.state.userinfo);
     }
   },
   created() {

@@ -64,7 +64,6 @@ export default {
           )
           .then(
             function(res) {
-              console.log(res);
               if (res.data) {
                 this.$toast({
                   message: "修改成功！",
@@ -111,7 +110,6 @@ export default {
     },
     addGroup() {
       this.$messagebox.prompt("请输入部门名称", "").then(data => {
-        console.log(data.value);
         let new_name = data.value;
         this.$http
           .post(
@@ -123,7 +121,6 @@ export default {
           )
           .then(
             function(res) {
-              console.log(res);
               if (res.data) {
                 this.$toast({
                   message: "添加成功！",

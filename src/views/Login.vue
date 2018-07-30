@@ -30,8 +30,8 @@ export default {
       if (this.userinfo.name && this.userinfo.pwd) {
         let that = this;
         if (
-          this.userinfo.nameState == "success" &&
-          this.userinfo.pwdState == "success"
+          this.userinfo.nameState === "success" &&
+          this.userinfo.pwdState === "success"
         ) {
           this.$indicator.open({
             text: "登陆中...",
@@ -56,10 +56,9 @@ export default {
                 }
               }.bind(this)
             )
-            .catch(function(err) {
+            .catch(function() {
               that.$indicator.close();
-              that.$toast("网络错误! ");
-              console.log(err);
+              that.$toast("登录失败! ");
             });
         } else {
           this.$toast("用户名或密码不规范！");

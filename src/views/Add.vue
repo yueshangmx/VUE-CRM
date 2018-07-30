@@ -73,8 +73,8 @@ export default {
     submit() {
       if (this.userinfo.kehu_name && this.userinfo.kehu_phone) {
         if (
-          this.checkinfo.name == "success" &&
-          this.checkinfo.phone == "success"
+          this.checkinfo.name === "success" &&
+          this.checkinfo.phone === "success"
         ) {
           this.$http
             .post(
@@ -215,9 +215,7 @@ export default {
         } else {
           this.$messagebox
             .confirm("获取服务器信息失败，是否重试？")
-            .then(() => {
-              console.log(this);
-            });
+            .then(() => {});
         }
       }.bind(this)
     );
