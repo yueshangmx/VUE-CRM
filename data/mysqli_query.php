@@ -7,8 +7,8 @@
  */
 $result = mysqli_query( $con, $sql );
 
-if($result){
-	$res= mysqli_fetch_assoc( $result );
+if ( $result->num_rows ) {
+	$res = mysqli_fetch_assoc( $result );
 } else {
 	$res = array(
 		"result" => false
