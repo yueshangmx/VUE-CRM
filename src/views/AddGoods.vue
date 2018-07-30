@@ -10,11 +10,11 @@
     <div class="ag-main">
       <ul class="ag-pic">
         <li class="pic-list" v-for="(item,index) in piclist" :key="index" v-if="item.isshow">
-          <img :src="item.src" alt="">
+          <img :src="item.src" alt="" @click="removepic" :data-index="index">
         </li>
         <li class="pic-add">
-          <input id="uploads" type="file" class="ag-pic" v-on:change="uploadImages" accept="image/*" multiple/>
-          <button class="btn" @click="addpic" v-show="picflag"><i class="iconfont icon-jiajianzujianjiahao"></i></button>
+          <input id="uploads" type="file" class="ag-pic" @change="uploadImages" accept="image/*" multiple/>
+          <button class="btn" @click.stop="addpic" v-show="picflag"><i class="iconfont icon-jiajianzujianjiahao"></i></button>
         </li>
       </ul>
       <mt-field type="text" label="商品名称" placeholder="必填"></mt-field>
@@ -29,6 +29,7 @@ export default {
     return {
       title: "添加商品",
       goodsinfo: {
+        id: "",
         name: "",
         jinjia: "",
         price: "",
@@ -37,7 +38,7 @@ export default {
         beizhu: ""
       },
       piclist: [],
-      picflag: true,
+      picflag: true
     };
   },
   methods: {
@@ -48,36 +49,70 @@ export default {
       let e = window.event || _e;
       let that = this;
       let files = e.target.files;
-      if (files.length == 5) that.picflag = false;
+      if (files.length === 5) that.picflag = false;
       for (let i = 0; i < files.length; i++) {
         let reader = new FileReader();
         reader.readAsDataURL(files[i]);
         reader.onload = function() {
           if (that.piclist.length < 5) {
-            that.$http
-              .post(
-                that.$store.state.SERVER + "/data/uploadimg.php",
-                that.$Qs.stringify({
-                  ishow: false,
-                  src: this.result
-                })
-              )
-              .then(function(res) {
-                console.log(res);
-                if (res.data) {
-                  that.piclist.push(res.data);
-                  that.showpic = true;
-                } else {
-                  that.$toast({
-                    message: "图片上传失败！",
-                    iconClass: "iconfont icon-cuowu"
-                  });
-                }
-              });
+            let pic = {
+              isshow: false,
+              src: this.result
+            };
+            that.piclist.push(pic);
+            that.postImages(that);
           }
-          if (that.piclist.length == 5) that.picflag = false;
         };
       }
+    },
+    removepic(e) {
+      let _e = window.event || e;
+      let index = _e.target.dataset.index;
+      if (this.piclist.length > 1) {
+        this.piclist.splice(index, 1);
+        this.postImages(this);
+      } else {
+        this.$toast({
+          message: "请至少上传一张缩略图！",
+          iconClass: "iconfont icon-cuowu"
+        });
+      }
+    },
+    postImages(that) {
+      let data = {
+        goods_id: that.goodsinfo.id,
+        parent_id: that.$store.state.userinfo.user_parent_id,
+        user_id: that.$store.state.userinfo.user_id,
+        imglist: that.piclist
+      };
+      that.$http
+        .post(
+          that.$store.state.SERVER + "/data/uploadimg.php",
+          that.$Qs.stringify(data)
+        )
+        .then(function(res) {
+          console.log(res.data);
+          if (res.data.goods_id) {
+            that.goodsinfo.id = res.data.goods_id;
+            for (let index in that.piclist) {
+              that.piclist[index].isshow = true;
+            }
+            that.picflag = that.piclist.length < 5;
+          } else {
+            if (!res.data.result) {
+              that.$toast({
+                message: "图片上传失败！",
+                iconClass: "iconfont icon-cuowu"
+              });
+              that.piclist.pop();
+            } else {
+              for (let index in that.piclist) {
+                that.piclist[index].isshow = true;
+              }
+              that.picflag = that.piclist.length < 5;
+            }
+          }
+        });
     }
   },
   created() {
@@ -100,19 +135,21 @@ export default {
       list-style: none;
       height: 80px;
       margin: 0;
-      padding: 0;
+      padding: 0 5px;
       display: flex;
       .pic-list {
+        width: 20%;
+        padding: 10px 0;
         img {
           box-sizing: border-box;
           width: 60px;
           height: 60px;
-          margin: 10px 0 0 10px;
           border: 1px solid #ccc;
         }
       }
       .pic-add {
         .ag-pic {
+          width: 20%;
           display: none;
         }
         .btn {
