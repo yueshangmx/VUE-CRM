@@ -1,8 +1,15 @@
 <template>
-  <div class="goods">
+  <div class="goodslist">
     <Top title="商品管理" />
-    <h2>商品管理</h2>
-    <router-link to="/addGoods" class="g-add" >
+    <div class="gl-main">
+      <div class="gl-top">
+        <div class="gl-t-left">商品总数</div>
+        <router-link class="gl-t-right" to="/setfenlei">
+          <i class="iconfont icon-shezhi"></i>
+        </router-link>
+      </div>
+    </div>
+    <router-link to="/addGoods" class="gl-add" >
       <i class="iconfont icon-jiajianzujianjiahao"></i>
     </router-link>
   </div>
@@ -11,7 +18,7 @@
 <script>
 import Top from "@/components/Top.vue";
 export default {
-  name: "Goods",
+  name: "goods",
   components: {
     Top
   },
@@ -24,8 +31,23 @@ export default {
 </script>
 
 <style scoped lang="less">
-.goods {
-  .g-add {
+.goodslist {
+  .gl-main {
+    .gl-top {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 10px;
+      .gl-t-left {
+        font-size: 12px;
+      }
+      .gl-t-right {
+        font-size: 20px;
+      }
+    }
+  }
+  .gl-add {
     i {
       position: fixed;
       right: 30px;

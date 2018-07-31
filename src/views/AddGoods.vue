@@ -5,9 +5,6 @@
         <router-link to="/goods" slot="left">
           <mt-button icon="back"></mt-button>
         </router-link>
-        <mt-button slot="right">
-          <i class="iconfont icon-shezhi" @click="addFenlei"></i>
-        </mt-button>
       </mt-header>
     </div>
     <div class="ag-main">
@@ -21,13 +18,13 @@
         </li>
       </ul>
       <div class="ag-part">
-        <mt-field type="text" label="商品名称" v-model="goodsinfo.name" placeholder="必填"></mt-field>
-        <mt-field type="text" label="商品分类" v-model="goodsinfo.fenlei" placeholder="必填"></mt-field>
+        <mt-field type="text" label="商品名称" v-model="goodsinfo.name" :state="checkinfo.name" placeholder="必填"></mt-field>
+        <mt-field type="text" label="商品分类" v-model="goodsinfo.fenlei" :state="checkinfo.fenlei" placeholder="必填"></mt-field>
       </div>
       <div class="ag-part">
-        <mt-field type="text" label="商品进价" v-model="goodsinfo.jinjia" placeholder="0.00"></mt-field>
-        <mt-field type="text" label="商品售价" v-model="goodsinfo.price" placeholder="0.00"></mt-field>
-        <mt-field type="text" label="商品库存" v-model="goodsinfo.inventory" placeholder="0">台</mt-field>
+        <mt-field type="text" label="商品进价" v-model="goodsinfo.jinjia" :state="checkinfo.jinjia" placeholder="0.00"></mt-field>
+        <mt-field type="text" label="商品售价" v-model="goodsinfo.price" :state="checkinfo.price" placeholder="0.00"></mt-field>
+        <mt-field type="text" label="商品库存" v-model="goodsinfo.inventory" :state="checkinfo.inventory" placeholder="0">台</mt-field>
       </div>
       <div class="ag-part">
         <mt-field type="textarea" label="备注" v-model="goodsinfo.beizhu" placeholder="商品备注"></mt-field>
@@ -54,6 +51,9 @@ export default {
       },
       checkinfo: {
         name: "",
+        fenlei: "",
+        jinjia: "",
+        inventory: "",
         price: ""
       },
       piclist: [],
@@ -62,8 +62,8 @@ export default {
   },
   watch: {
     piclist: {
-      handler() {
-        console.log(this.goodsinfo.imgarr);
+      handler: function(newVal) {
+        this.goodsinfo.imgarr = newVal;
       },
       deep: true
     }
@@ -203,6 +203,22 @@ export default {
     }
     .ag-part {
       margin-bottom: 15px;
+      .mint-field {
+        .mint-cell-wrapper {
+          .mint-field-core {
+            padding-left: 10%;
+            text-align: right;
+            padding-right: 40px;
+          }
+          .mint-field-state {
+            position: absolute;
+            right: 10px;
+          }
+          .mint-field-other {
+            right: 25px;
+          }
+        }
+      }
     }
   }
   .mint-cell-wrapper {

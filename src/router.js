@@ -15,6 +15,7 @@ import Addmember from "./views/AddMember";
 import Group from "./views/Group";
 import Setgroup from "./views/Setgroup";
 import Addgoods from "./views/AddGoods";
+import Setfenlei from "./views/Setgoodsfenlei";
 
 Vue.use(Router);
 
@@ -84,6 +85,11 @@ export default new Router({
       path: "/setgroup",
       name: "setgroup",
       component: Setgroup
+    },
+    {
+      path: "/setfenlei",
+      name: "setfenlei",
+      component: Setfenlei
     },
     {
       path: "/consumer-details/:id",
