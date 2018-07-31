@@ -144,7 +144,7 @@ export default {
     i {
       position: fixed;
       right: 30px;
-      bottom: 30px;
+      bottom: 50px;
       background: #df5430;
       width: 40px;
       height: 40px;

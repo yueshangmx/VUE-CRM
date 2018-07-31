@@ -39,7 +39,9 @@ export default {
       this.$http
         .post(
           this.$store.state.SERVER + "/data/group.php",
-          this.$Qs.stringify({ user_id: this.$store.state.userinfo.user_id })
+          this.$Qs.stringify({
+            user_id: this.$store.state.userinfo.user_parent_id
+          })
         )
         .then(
           function(res) {
@@ -184,7 +186,7 @@ export default {
     i {
       position: fixed;
       right: 30px;
-      bottom: 30px;
+      bottom: 50px;
       background: #df5430;
       width: 40px;
       height: 40px;

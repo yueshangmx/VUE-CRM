@@ -43,7 +43,12 @@ export default {
         font-size: 12px;
       }
       .gl-t-right {
-        font-size: 20px;
+        margin: 4px 0;
+        i {
+          font-weight: bold;
+          font-size: 18px;
+          color: #333;
+        }
       }
     }
   }
@@ -51,7 +56,7 @@ export default {
     i {
       position: fixed;
       right: 30px;
-      bottom: 30px;
+      bottom: 50px;
       background: #df5430;
       width: 40px;
       height: 40px;

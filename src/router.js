@@ -13,7 +13,6 @@ import Cdetails from "./views/ConsumerDetails";
 import Mdetails from "./views/MemberDetails";
 import Addmember from "./views/AddMember";
 import Group from "./views/Group";
-import Setgroup from "./views/Setgroup";
 import Addgoods from "./views/AddGoods";
 import Setfenlei from "./views/Setgoodsfenlei";
 
@@ -80,11 +79,6 @@ export default new Router({
       path: "/group",
       name: "group",
       component: Group
-    },
-    {
-      path: "/setgroup",
-      name: "setgroup",
-      component: Setgroup
     },
     {
       path: "/setfenlei",
