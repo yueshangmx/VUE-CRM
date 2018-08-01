@@ -9,11 +9,10 @@
     </div>
     <div class="em-main">
       <div class="em-part">
-        <mt-field type="text" label="员工姓名" placeholder="必填" v-model="memberinfo.currenname" :state="checkmember.cname"></mt-field>
-        <mt-field type="text" label="登录账号" placeholder="必填" v-model="memberinfo.username" :state="checkmember.uname"></mt-field>
-        <mt-field type="password" label="登录密码" placeholder="必填" v-model="memberinfo.password" :state="checkmember.pwd"></mt-field>
-        <mt-field label="性别"  :attr="{style:'display:none'}">
-          <select name="sex" class="sex" v-model="memberinfo.sex">
+        <mt-field type="text" label="登录账号" placeholder="必填" v-model="memberinfo.user_name" readOnly disableClear></mt-field>
+        <mt-field type="text" label="员工姓名" placeholder="必填" v-model="memberinfo.user_currenname" :state="checkmember.cname"></mt-field>
+        <mt-field label="员工性别"  :attr="{style:'display:none'}">
+          <select name="sex" class="sex" v-model="memberinfo.user_sex">
             <option value="0">男士</option>
             <option value="1">女士</option>
           </select>
@@ -21,12 +20,12 @@
       </div>
       <div class="em-part">
         <mt-field label="所属部门" :attr="{style:'display:none'}">
-          <select name="dept" class="em-dept" v-model="memberinfo.dept">
+          <select name="dept" class="em-dept" v-model="memberinfo.user_dept_id">
             <option v-for="item in deptlist" :key="item.dept_id" :value="item.dept_id">{{item.dept_name}}</option>
           </select>
         </mt-field>
         <mt-field label="员工权限" :attr="{style:'display:none'}">
-          <select name="group" class="em-group" v-model="memberinfo.group">
+          <select name="group" class="em-group" v-model="memberinfo.user_group_id">
             <option value="2">管理员</option>
             <option value="3">店长</option>
             <option value="4">员工</option>
@@ -34,7 +33,7 @@
         </mt-field>
       </div>
       <div class="em-part em-save">
-        <mt-button type="default" size="large" @click="saveMember">保存</mt-button>
+        <mt-button type="default" size="large" @click="updateMember">保存</mt-button>
       </div>
     </div>
   </div>
@@ -42,19 +41,11 @@
 
 <script>
 export default {
-  name: "addMember",
+  name: "editmember",
   data() {
     return {
       deptlist: [],
-      memberinfo: {
-        currenname: "",
-        username: "",
-        password: "",
-        sex: "0",
-        dept: "",
-        group: "4",
-        parent_id: ""
-      },
+      memberinfo: {},
       checkmember: {
         cname: "",
         uname: "",
@@ -63,76 +54,64 @@ export default {
     };
   },
   watch: {
-    "memberinfo.currenname": function() {
-      if (!this.memberinfo.currenname) {
+    "memberinfo.user_currenname": function() {
+      if (!this.memberinfo.user_currenname) {
         this.checkmember.cname = "";
       } else {
         let reg = /^[\u4e00-\u9fa5]{2,5}$/;
-        this.checkmember.cname = reg.test(this.memberinfo.currenname)
+        this.checkmember.cname = reg.test(this.memberinfo.user_currenname)
           ? "success"
           : "warning";
       }
     },
-    "memberinfo.username": function() {
-      if (!this.memberinfo.username) {
+    "memberinfo.user_name": function() {
+      if (!this.memberinfo.user_name) {
         this.checkmember.uname = "";
       } else {
         let reg = /^[\w]{5,10}$/;
-        let namecheck = reg.test(this.memberinfo.username);
-        this.$http
-          .post(
-            this.$store.state.SERVER + "/data/checkusername.php",
-            this.$Qs.stringify({ user_name: this.memberinfo.username })
-          )
-          .then(
-            function(res) {
-              if (res.data.user_id) {
-                this.checkmember.uname = "warning";
-              } else {
-                this.checkmember.uname = namecheck ? "success" : "warning";
-              }
-            }.bind(this)
-          );
+        this.checkmember.uname = reg.test(this.memberinfo.user_name)
+          ? "success"
+          : "warning";
       }
     },
-    "memberinfo.password": function() {
-      if (!this.memberinfo.password) {
+    "memberinfo.user_pwd": function() {
+      if (!this.memberinfo.user_pwd) {
         this.checkmember.pwd = "";
       } else {
         let reg = /^[\w\-\W]{6,16}$/;
-        this.checkmember.pwd = reg.test(this.memberinfo.password)
+        this.checkmember.pwd = reg.test(this.memberinfo.user_pwd)
           ? "success"
           : "warning";
       }
     }
   },
   created() {
-    this.memberinfo.parent_id = JSON.parse(
-      sessionStorage.getItem("info")
-    ).user_id;
-    this.$http
-      .get(
-        this.$store.state.SERVER +
-          "/data/add_member.php?user_id=" +
-          this.memberinfo.parent_id
-      )
-      .then(
-        function(res) {
-          if (res) {
-            this.deptlist = res.data;
-            this.memberinfo.dept = res.data[0].dept_id;
-          } else {
-            this.$toast("服务器通信出错！");
-          }
-        }.bind(this)
-      );
+    if (this.$store.state.memberinfo.user_id) {
+      this.memberinfo = this.$store.state.memberinfo;
+      this.$http
+        .get(
+          this.$store.state.SERVER +
+            "/data/add_member.php?user_id=" +
+            this.memberinfo.user_parent_id
+        )
+        .then(
+          function(res) {
+            if (res) {
+              this.deptlist = res.data;
+              this.memberinfo.dept = res.data[0].dept_id;
+            } else {
+              this.$toast("服务器通信出错！");
+            }
+          }.bind(this)
+        );
+    }
   },
   methods: {
-    saveMember() {
+    updateMember() {
       if (
-        this.memberinfo.username &&
-        this.memberinfo.currenname &&
-        this.memberinfo.password
+        this.memberinfo.user_name &&
+        this.memberinfo.user_currenname &&
+        this.memberinfo.user_pwd
       ) {
         if (
           this.checkmemberinfo.cname == "success" &&
@@ -141,7 +120,7 @@ export default {
         ) {
           this.$http
             .post(
-              this.$store.state.SERVER + "/data/add_member.php",
+              this.$store.state.SERVER + "/data/update_member.php",
               this.$Qs.stringify(this.member)
             )
             .then(

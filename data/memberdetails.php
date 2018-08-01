@@ -7,7 +7,7 @@
  */
 require "connect.php";
 
-$user_id = $_GET['user_id'];
+$user_id = $_REQUEST['user_id'];
 $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {

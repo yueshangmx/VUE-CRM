@@ -19,7 +19,7 @@
     </div>
     <div class="m-bottom">
       <mt-button type="default" size="small" @click="edit">修改信息</mt-button>
-      <mt-button type="default" size="small" @click="del(memberinfo.user_id)">删除员工</mt-button>
+      <mt-button type="default" size="small" @click="del">删除员工</mt-button>
     </div>
   </div>
 </template>
@@ -44,7 +44,7 @@ export default {
           }.bind(this)
         );
     },
-    del(id) {
+    del() {
       this.$messagebox
         .confirm("确定删除员工：" + this.memberinfo.user_currenname + "?")
         .then(() => {
@@ -52,17 +52,31 @@ export default {
             .post(
               this.$store.state.SERVER + "/data/memberdetails.php",
               this.$Qs.stringify({
-                user_id: id
+                user_id: this.memberinfo.user_id
               })
             )
-            .then(function(res) {
-              console.log(res);
-            });
+            .then(
+              function(res) {
+                console.log(res);
+                if (res.data.result) {
+                  this.$toast({
+                    message: "删除成功！",
+                    iconClass: "iconfont icon-icon31"
+                  });
+                  this.$router.replace({ path: "/member" });
+                } else {
+                  this.$toast({
+                    message: "删除失败！",
+                    iconClass: "iconfont icon-cuowu"
+                  });
+                }
+              }.bind(this)
+            );
         });
     },
     edit() {
       this.$store.commit("updateMemberinfo", this.memberinfo);
-      this.$router.push({ path: "/addmember" });
+      this.$router.push({ path: "/editmember" });
     }
   },
   created() {
