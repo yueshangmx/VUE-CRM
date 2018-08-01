@@ -346,6 +346,7 @@ export default {
             .ag-fenlei {
               height: 45px;
               border: 0;
+              background-color: #fff;
             }
           }
         }

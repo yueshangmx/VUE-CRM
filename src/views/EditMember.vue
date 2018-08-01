@@ -47,9 +47,7 @@ export default {
       deptlist: [],
       memberinfo: {},
       checkmember: {
-        cname: "",
-        uname: "",
-        pwd: ""
+        cname: ""
       }
     };
   },
@@ -60,26 +58,6 @@ export default {
       } else {
         let reg = /^[\u4e00-\u9fa5]{2,5}$/;
         this.checkmember.cname = reg.test(this.memberinfo.user_currenname)
-          ? "success"
-          : "warning";
-      }
-    },
-    "memberinfo.user_name": function() {
-      if (!this.memberinfo.user_name) {
-        this.checkmember.uname = "";
-      } else {
-        let reg = /^[\w]{5,10}$/;
-        this.checkmember.uname = reg.test(this.memberinfo.user_name)
-          ? "success"
-          : "warning";
-      }
-    },
-    "memberinfo.user_pwd": function() {
-      if (!this.memberinfo.user_pwd) {
-        this.checkmember.pwd = "";
-      } else {
-        let reg = /^[\w\-\W]{6,16}$/;
-        this.checkmember.pwd = reg.test(this.memberinfo.user_pwd)
           ? "success"
           : "warning";
       }
@@ -98,7 +76,6 @@ export default {
           function(res) {
             if (res) {
               this.deptlist = res.data;
-              this.memberinfo.dept = res.data[0].dept_id;
             } else {
               this.$toast("服务器通信出错！");
             }
@@ -108,32 +85,25 @@ export default {
   },
   methods: {
     updateMember() {
-      if (
-        this.memberinfo.user_name &&
-        this.memberinfo.user_currenname &&
-        this.memberinfo.user_pwd
-      ) {
-        if (
-          this.checkmemberinfo.cname == "success" &&
-          this.checkmemberinfo.uname == "success" &&
-          this.checkmemberinfo.pwd == "success"
-        ) {
+      if (this.memberinfo.user_currenname) {
+        if (this.checkmember.cname == "success") {
           this.$http
             .post(
               this.$store.state.SERVER + "/data/update_member.php",
-              this.$Qs.stringify(this.member)
+              this.$Qs.stringify(this.memberinfo)
             )
             .then(
               function(res) {
+                console.log(res);
                 if (res.data.result) {
                   this.$toast({
-                    message: "添加成功！",
+                    message: "更新成功！",
                     iconClass: "iconfont icon-icon31"
                   });
-                  this.$router.go(0);
+                  this.$router.replace({ path: "/member" });
                 } else {
                   this.$toast({
-                    message: "添加失败！请重试...",
+                    message: "更新失败！请重试...",
                     iconClass: "iconfont icon-cuowu"
                   });
                 }

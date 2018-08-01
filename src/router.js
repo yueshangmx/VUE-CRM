@@ -16,6 +16,7 @@ import Editmember from "./views/EditMember";
 import Group from "./views/Group";
 import Addgoods from "./views/AddGoods";
 import Setfenlei from "./views/Setgoodsfenlei";
+import Gdetails from "./views/GoodsDetails";
 
 Vue.use(Router);
 
@@ -100,6 +101,11 @@ export default new Router({
       path: "/member-details/:id",
       name: "member-details",
       component: Mdetails
+    },
+    {
+      path: "/goods-details/:id",
+      name: "goods-details",
+      component: Gdetails
     },
     {
       path: "*",
