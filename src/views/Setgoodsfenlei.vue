@@ -1,7 +1,7 @@
 <template>
   <div class="setfenlei">
     <div class="sf-top">
-      <mt-header title="商品分类设置">
+      <mt-header title="商品分类管理">
         <router-link to="/goods" slot="left">
           <mt-button icon="back"></mt-button>
         </router-link>
@@ -11,10 +11,10 @@
       <mt-loadmore :top-method="loadTop" ref="loadmore">
         <ul class="sf-list">
           <li v-for="(item,index) in list" :key="index" class="item-list">
-            <div class="sf-left">默认分组</div>
-            <div class="sf-right">
-              <i class="iconfont icon-yijianfankui" @click="editfenlei"></i>
-              <i class="iconfont icon-delete" @click="deletefenlei"></i>
+            <div class="sf-left">{{item.fenlei_name}}</div>
+            <div class="sf-right" v-if="item.fenlei_parent_id != 0">
+              <i class="iconfont icon-yijianfankui" @click="editfenlei(item.fenlei_name,item.fenlei_id)"></i>
+              <i class="iconfont icon-delete" @click="deletefenlei(item.fenlei_name,item.fenlei_id)"></i>
             </div>
           </li>
         </ul>
@@ -45,7 +45,14 @@ export default {
         )
         .then(
           function(res) {
-            this.list = res.data;
+            if (res.data.length > 0) {
+              this.list = res.data;
+            } else {
+              this.$toast({
+                message: "读取出错！",
+                iconClass: "iconfont icon-cuowu"
+              });
+            }
           }.bind(this)
         );
     },
@@ -59,16 +66,17 @@ export default {
         .then(data => {
           this.$http
             .post(
-              this.$store.state.SERVER + "/data/group.php",
+              this.$store.state.SERVER + "/data/setfenlei.php",
               this.$Qs.stringify({
-                user_id: this.$store.state.userinfo.user_id,
-                dept_id: id,
-                new_dept_name: data.value
+                parent_id: this.$store.state.userinfo.user_id,
+                fenlei_id: id,
+                fenlei_name: data.value
               })
             )
             .then(
               function(res) {
-                if (res.data) {
+                console.log(res);
+                if (res.data.result) {
                   this.$toast({
                     message: "修改成功！",
                     iconClass: "iconfont icon-icon31"
@@ -84,19 +92,19 @@ export default {
             );
         });
     },
-    deletefenlei(data) {
-      this.$messagebox.confirm("确定删除此分类吗？").then(() => {
+    deletefenlei(name, id) {
+      this.$messagebox.confirm("确定删除此分类：" + name + "？").then(() => {
         this.$http
           .post(
-            this.$store.state.SERVER + "/data/group.php",
+            this.$store.state.SERVER + "/data/setfenlei.php",
             this.$Qs.stringify({
-              user_id: this.$store.state.userinfo.user_id,
-              dept_id: data
+              parent_id: this.$store.state.userinfo.user_id,
+              fenlei_id: id
             })
           )
           .then(
             function(res) {
-              if (res.data) {
+              if (res.data.result) {
                 this.$toast({
                   message: "删除成功！",
                   iconClass: "iconfont icon-icon31"
@@ -114,18 +122,17 @@ export default {
     },
     addfenlei() {
       this.$messagebox.prompt("请输入商品分类名称", "").then(data => {
-        let new_name = data.value;
         this.$http
           .post(
-            this.$store.state.SERVER + "/data/group.php",
+            this.$store.state.SERVER + "/data/setfenlei.php",
             this.$Qs.stringify({
-              user_id: this.$store.state.userinfo.user_id,
-              new_dept_name: new_name
+              parent_id: this.$store.state.userinfo.user_id,
+              fenlei_name: data.value
             })
           )
           .then(
             function(res) {
-              if (res.data) {
+              if (res.data.result) {
                 this.$toast({
                   message: "添加成功！",
                   iconClass: "iconfont icon-icon31"
@@ -162,15 +169,20 @@ export default {
     .sf-list {
       margin-top: 0;
       list-style: none;
-      padding-left: 10px;
+      padding-left: 0;
+      padding-bottom: 100%;
       .item-list {
         font-size: 14px;
         border-bottom: 1px solid #ccc;
-        padding: 10px 5px 10px 0;
+        padding: 12px 5px 12px 10px;
+        background-color: #fff;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
+        .sf-left {
+          height: 22px;
+        }
         .sf-right {
           i {
             margin-right: 15px;

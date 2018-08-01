@@ -4,9 +4,9 @@
     <h2>智能CRM管理系统</h2>
     <div class="content">
       <p>版本 v0.2</p>
-      <p>合作联系电话：<a href="tel:0551-64275530" type="t">0551-64275530</a></p>
+      <p>合作联系电话：<a href="tel:0551-64275530" type="tel">0551-64275530</a></p>
     </div>
-    <mt-button type="primary" @click="logout">退出登录</mt-button>
+    <mt-button type="default" @click="logout">退出登录</mt-button>
     <Foot />
   </div>
 </template>
@@ -36,6 +36,10 @@ export default {
   .nav-about {
     color: #df5420 !important;
     font-weight: bold;
+  }
+  .mint-button {
+    color: #fff;
+    background-color: #df5420;
   }
 }
 </style>

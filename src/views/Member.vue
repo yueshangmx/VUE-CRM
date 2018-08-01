@@ -10,7 +10,7 @@
       <mt-loadmore :top-method="loadTop" ref="loadmore">
         <ul class="m-list">
           <li v-for="(item,index) in list" :key="index">
-            <router-link :to="'/member-details/'+item.id">
+            <router-link :to="'/member-details/'+item.user_id">
               <div class="d-left">
                 <div class="d-name-p">
                   <div class="detail-name">{{item.user_currenname}}</div>
@@ -104,11 +104,11 @@ export default {
       list-style: none;
       background-color: #fff;
       margin: 0;
-      padding-left: 10px;
+      padding-left: 0;
       padding-bottom: 100%;
       li {
         border-bottom: 1px solid #ccc;
-        padding: 10px 10px 10px 0;
+        padding: 12px 10px;
         a {
           display: flex;
           flex-direction: row;

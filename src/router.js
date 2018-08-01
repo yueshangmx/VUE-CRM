@@ -12,6 +12,7 @@ import Member from "./views/Member";
 import Cdetails from "./views/ConsumerDetails";
 import Mdetails from "./views/MemberDetails";
 import Addmember from "./views/AddMember";
+import Editmember from "./views/EditMember";
 import Group from "./views/Group";
 import Addgoods from "./views/AddGoods";
 import Setfenlei from "./views/Setgoodsfenlei";
@@ -74,6 +75,11 @@ export default new Router({
       path: "/addgoods",
       name: "addgoods",
       component: Addgoods
+    },
+    {
+      path: "/editmember",
+      name: "editmember",
+      component: Editmember
     },
     {
       path: "/group",

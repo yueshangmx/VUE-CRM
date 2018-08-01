@@ -1,14 +1,14 @@
 <template>
-  <div class="add-member">
-    <div class="am-top">
+  <div class="edit-member">
+    <div class="em-top">
       <mt-header title="添加员工">
         <router-link to="/member" slot="left">
           <mt-button icon="back"></mt-button>
         </router-link>
       </mt-header>
     </div>
-    <div class="am-main">
-      <div class="am-part">
+    <div class="em-main">
+      <div class="em-part">
         <mt-field type="text" label="员工姓名" placeholder="必填" v-model="memberinfo.currenname" :state="checkmember.cname"></mt-field>
         <mt-field type="text" label="登录账号" placeholder="必填" v-model="memberinfo.username" :state="checkmember.uname"></mt-field>
         <mt-field type="password" label="登录密码" placeholder="必填" v-model="memberinfo.password" :state="checkmember.pwd"></mt-field>
@@ -19,21 +19,21 @@
           </select>
         </mt-field>
       </div>
-      <div class="am-part">
+      <div class="em-part">
         <mt-field label="所属部门" :attr="{style:'display:none'}">
-          <select name="dept" class="am-dept" v-model="memberinfo.dept">
+          <select name="dept" class="em-dept" v-model="memberinfo.dept">
             <option v-for="item in deptlist" :key="item.dept_id" :value="item.dept_id">{{item.dept_name}}</option>
           </select>
         </mt-field>
         <mt-field label="员工权限" :attr="{style:'display:none'}">
-          <select name="group" class="am-group" v-model="memberinfo.group">
+          <select name="group" class="em-group" v-model="memberinfo.group">
             <option value="2">管理员</option>
             <option value="3">店长</option>
             <option value="4">员工</option>
           </select>
         </mt-field>
       </div>
-      <div class="am-part am-save">
+      <div class="em-part em-save">
         <mt-button type="default" size="large" @click="saveMember">保存</mt-button>
       </div>
     </div>
@@ -178,14 +178,14 @@ export default {
 </script>
 
 <style lang="less">
-.add-member {
-  .am-top {
+.edit-member {
+  .em-top {
     .mint-header {
       background-color: #df5420;
     }
   }
-  .am-main {
-    .am-part {
+  .em-main {
+    .em-part {
       margin-bottom: 15px;
       .mint-field {
         .mint-cell-wrapper {
@@ -199,8 +199,8 @@ export default {
           .mint-field-other {
             padding-left: 10%;
             .sex,
-            .am-dept,
-            .am-group {
+            .em-dept,
+            .em-group {
               border: 0;
               height: 40px;
               background-color: #fff;
@@ -209,7 +209,7 @@ export default {
         }
       }
     }
-    .am-save {
+    .em-save {
       width: 90%;
       margin: 0 auto;
       button {

@@ -45,7 +45,14 @@ export default {
         )
         .then(
           function(res) {
-            this.grouplist = res.data;
+            if (res.data.length > 0) {
+              this.grouplist = res.data;
+            } else {
+              this.$toast({
+                message: "读取出错！",
+                iconClass: "iconfont icon-cuowu"
+              });
+            }
           }.bind(this)
         );
     },
@@ -66,7 +73,7 @@ export default {
           )
           .then(
             function(res) {
-              if (res.data) {
+              if (res.data.result) {
                 this.$toast({
                   message: "修改成功！",
                   iconClass: "iconfont icon-icon31"
@@ -94,7 +101,7 @@ export default {
           )
           .then(
             function(res) {
-              if (res.data) {
+              if (res.data.result) {
                 this.$toast({
                   message: "删除成功！",
                   iconClass: "iconfont icon-icon31"
@@ -123,7 +130,7 @@ export default {
           )
           .then(
             function(res) {
-              if (res.data) {
+              if (res.data.result) {
                 this.$toast({
                   message: "添加成功！",
                   iconClass: "iconfont icon-icon31"
@@ -160,11 +167,13 @@ export default {
     .g-list {
       margin-top: 0;
       list-style: none;
-      padding-left: 10px;
+      padding-left: 0;
+      padding-bottom: 100%;
       .item-list {
         font-size: 14px;
         border-bottom: 1px solid #ccc;
-        padding: 10px 5px 10px 0;
+        padding: 12px 5px 12px 10px;
+        background-color: #fff;
         display: flex;
         flex-direction: row;
         align-items: center;
