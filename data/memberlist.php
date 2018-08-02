@@ -10,7 +10,7 @@ require "connect.php";
 
 if ( ! empty( $_POST['parent_id'] ) ) {
 	$parent_id = $_POST['parent_id'];
-	$sql       = "SELECT u.`user_id`,u.`user_currenname`,u.`user_dept_id`,u.`user_group_id`,d.`dept_name` FROM `users` AS u LEFT JOIN `dept` AS d ON d.`dept_id`=u.`user_dept_id` WHERE u.`user_parent_id`=$parent_id";
+	$sql       = "SELECT u.`user_id`,u.`user_currenname`,u.`user_dept_id`,u.`user_group_id`,d.`dept_name` FROM `users` AS u LEFT JOIN `dept` AS d ON d.`dept_id`=u.`user_dept_id` WHERE u.`user_parent_id`=$parent_id ORDER BY u.`user_id`";
 	$result    = mysqli_query( $con, $sql );
 	$res       = [];
 	while ( ( $row = mysqli_fetch_assoc( $result ) ) !== null ) {

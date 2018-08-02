@@ -53,7 +53,7 @@ export default {
   },
   filters: {
     time(value) {
-      return new Date(value * 1000).toLocaleString();
+      return new Date(value * 1000).toLocaleDateString();
     }
   },
   methods: {
@@ -160,11 +160,6 @@ export default {
     position: fixed;
     bottom: 0;
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    padding: 10px 0;
     background-color: #fff;
     .mint-button {
       background-color: #df5420;

@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     loadTop() {
-      console.log(this);
+      this.getgoods();
       this.$refs.loadmore.onTopLoaded();
     },
     getgoods() {
@@ -63,7 +63,6 @@ export default {
         )
         .then(
           function(res) {
-            console.log(res);
             if (res.data.length > 0) {
               this.list = res.data;
             } else {

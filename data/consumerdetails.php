@@ -7,9 +7,9 @@
  */
 require "connect.php";
 
-$id = $_POST['id'];
+$id    = $_POST['id'];
 $state = $_POST['state'];
-switch ($state) {
+switch ( $state ) {
 	case 0:
 		$sql = "SELECT * FROM `kehu` WHERE id=$id";
 		require_once "mysqli_query.php";
@@ -18,5 +18,4 @@ switch ($state) {
 		$sql = "DELETE FROM `kehu` WHERE id=$id";
 		require "getRes.php";
 }
-
-echo json_encode($res);
+echo json_encode( $res );

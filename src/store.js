@@ -8,7 +8,7 @@ export default new Vuex.Store({
     SERVER: "http://vue.dev.com",
     userinfo: {},
     memberinfo: {},
-    kehuinfo: {}
+    goodsinfo: {}
   },
   mutations: {
     updateUserInfo() {
@@ -17,8 +17,8 @@ export default new Vuex.Store({
     updateMemberinfo(state, data) {
       state.memberinfo = data;
     },
-    updateKehuinfo(state, data) {
-      state.kehuinfo = data;
+    updateGoodsinfo(state, data) {
+      state.goodsinfo = data;
     },
     LOGIN(state, data) {
       this.state.userinfo = data;

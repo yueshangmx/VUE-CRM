@@ -35,8 +35,8 @@
       </div>
     </div>
     <div class="submit">
-      <mt-button type="default" size="small" @click="goback">取消添加</mt-button>
-      <mt-button type="default" size="small" @click="submit">保存继续</mt-button>
+      <mt-button type="default" size="small" @click="goback">取消</mt-button>
+      <mt-button type="default" size="small" @click="submit">保存</mt-button>
     </div>
   </div>
 </template>
