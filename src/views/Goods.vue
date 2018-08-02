@@ -12,7 +12,7 @@
         <ul class="list">
           <li v-for="(item,index) in list" :key="index">
             <router-link :to="'/goods-details/'+item.goods_id">
-                <img :src="decode(item.goods_litpic)" alt="">
+                <img :src="item.goods_litpic | decode" alt="">
                 <div class="g-ns">
                   <div class="g-name">{{item.goods_name}}</div>
                   <div class="g-sign">{{"编码："+item.goods_sign}}</div>
@@ -44,11 +44,12 @@ export default {
   components: {
     Top
   },
+  filters: {
+    decode(value) {
+      return JSON.parse(value)[0].src;
+    }
+  },
   methods: {
-    decode(data) {
-      let arr = JSON.parse(data);
-      return arr[0].src;
-    },
     loadTop() {
       console.log(this);
       this.$refs.loadmore.onTopLoaded();

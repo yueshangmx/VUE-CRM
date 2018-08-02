@@ -47,9 +47,9 @@ export default {
     loadTop() {
       this.start = 0;
       this.list = [];
-      this.loadList({ user_id: this.user_id });
+      this.loadList({ parent_id: this.user_id });
       this.loadList({
-        user_id: this.user_id,
+        parent_id: this.user_id,
         start: this.start,
         count: this.count
       });
@@ -57,7 +57,7 @@ export default {
     },
     loadBottom() {
       this.loadList({
-        user_id: this.user_id,
+        parent_id: this.user_id,
         start: this.start,
         count: this.count
       });
@@ -77,6 +77,9 @@ export default {
               } else {
                 this.list = this.list.concat(res.data);
                 this.start += 10;
+                if (res.data.length < 10) {
+                  this.allLoaded = true;
+                }
               }
             } else {
               this.$toast({
@@ -89,10 +92,13 @@ export default {
     }
   },
   created() {
-    this.user_id = JSON.parse(window.sessionStorage.getItem("info")).user_id;
-    this.loadList({ user_id: this.user_id });
+    if (!this.$store.state.userinfo.user_id) {
+      this.$store.commit("updateUserInfo");
+    }
+    this.user_id = this.$store.state.userinfo.user_id;
+    this.loadList({ parent_id: this.user_id });
     this.loadList({
-      user_id: this.user_id,
+      parent_id: this.user_id,
       start: this.start,
       count: this.count
     });

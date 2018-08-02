@@ -28,11 +28,12 @@ switch ($method) {
 		$kehu_email = !empty($_POST['kehu_email']) ? $_POST['kehu_email'] : "";
 		$kehu_beizhu = !empty($_POST['kehu_beizhu']) ? $_POST['kehu_beizhu'] : "";
 		$kehu_vip_id = !empty($_POST['kehu_vip']) ? "1": "0";
+		$kehu_created_time = time();
 
 		if(!($kehu_name && $kehu_phone)) {
 			echo '{"result": false,"msg": "添加失败！姓名或电话为空" }';
 		} else {
-			$sql = "INSERT INTO `kehu` VALUES(NULL,'$kehu_parent_id',$kehu_number,'$kehu_name','$kehu_phone',$kehu_sex,'$kehu_birthday','$kehu_address','$kehu_beizhu','$kehu_guhua','$kehu_qq','$kehu_weixin','$kehu_email','$kehu_vip_id')";
+			$sql = "INSERT INTO `kehu` VALUES(NULL,'$kehu_parent_id',$kehu_number,'$kehu_name','$kehu_phone',$kehu_sex,'$kehu_birthday','$kehu_address','$kehu_beizhu','$kehu_guhua','$kehu_qq','$kehu_weixin','$kehu_email','$kehu_vip_id','$kehu_created_time')";
 
 			$result = mysqli_query( $con, $sql );
 

@@ -83,7 +83,6 @@ export default {
             )
             .then(
               function(res) {
-                console.log(res);
                 if (res.data.result) {
                   this.$toast({
                     message: "添加成功！",
@@ -122,7 +121,6 @@ export default {
       that.$http
         .get(that.$store.state.SERVER + "/data/add_kehu.php")
         .then(function(res) {
-          console.log(res);
           if (res.data.kehu_number) {
             that.kehuinfo.kehu_number = parseInt(res.data.kehu_number) + 1;
           } else {
