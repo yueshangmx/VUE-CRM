@@ -15,7 +15,7 @@ switch ($method) {
 		require_once "mysqli_query.php";
 		break;
 	case "POST":
-		$user_id = $_POST['user_id'];
+		$kehu_parent_id = $_POST['kehu_parent_id'];
 		$kehu_number = $_POST['kehu_number'];
 		$kehu_name = !empty($_POST['kehu_name']) ? $_POST['kehu_name'] : "";
 		$kehu_phone = !empty($_POST['kehu_phone']) ? $_POST['kehu_phone'] : "";
@@ -32,7 +32,7 @@ switch ($method) {
 		if(!($kehu_name && $kehu_phone)) {
 			echo '{"result": false,"msg": "添加失败！姓名或电话为空" }';
 		} else {
-			$sql = "INSERT INTO `kehu` VALUES(NULL,'$user_id','$kehu_number','$kehu_name','$kehu_phone',$kehu_sex,'$kehu_birthday','$kehu_address','$kehu_beizhu','$kehu_guhua','$kehu_qq','$kehu_weixin','$kehu_email','$kehu_vip_id')";
+			$sql = "INSERT INTO `kehu` VALUES(NULL,'$kehu_parent_id',$kehu_number,'$kehu_name','$kehu_phone',$kehu_sex,'$kehu_birthday','$kehu_address','$kehu_beizhu','$kehu_guhua','$kehu_qq','$kehu_weixin','$kehu_email','$kehu_vip_id')";
 
 			$result = mysqli_query( $con, $sql );
 

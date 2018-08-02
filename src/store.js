@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    SERVER: "http://vue.dev.com",
+    SERVER: "http://crm.coolbear.wang",
     userinfo: {},
     memberinfo: {},
     kehuinfo: {}
