@@ -9,8 +9,8 @@
     </div>
     <div class="gd-main">
       <ul class="piclist">
-        <li v-for="(index,item) in piclist" :key="item.ishow"  @click="pop(index)">
-          <img :src="item.src" alt="">
+        <li v-for="(item,index) in piclist" :key="index">
+          <img :src="item.src" alt="" :data-index="index" @click="pop(index)">
         </li>
       </ul>
       <div class="gd-name">
@@ -44,8 +44,8 @@
       </div>
     </div>
     <mt-popup
-      v-model="popupVisible"
-      popup-transition="popup-fade" v-for="item in piclist" :key="item.ishow">
+      v-model="popupVisible[index]"
+      popup-transition="popup-fade" v-for="(item,index) in piclist" :key="index">
       <img :src="item.src" alt="">
     </mt-popup>
     <div class="gd-footer">
@@ -62,7 +62,7 @@ export default {
     return {
       goodsinfo: {},
       piclist: [],
-      popupVisible: false
+      popupVisible: []
     };
   },
   filters: {
@@ -76,8 +76,8 @@ export default {
     }
   },
   methods: {
-    pop() {
-      this.popupVisible = true;
+    pop(index) {
+      this.popupVisible.splice(index, 1, true);
     },
     edit() {
       console.log(this.goodsinfo);
@@ -194,7 +194,7 @@ export default {
       .infolist {
         color: #555;
         font-size: 14px;
-        padding: 6px 0;
+        padding: 8px 0;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -203,12 +203,6 @@ export default {
           color: #333;
         }
       }
-    }
-  }
-  .mint-popup {
-    width: 100%;
-    img {
-      width: 90%;
     }
   }
   .gd-footer {
@@ -225,6 +219,12 @@ export default {
     .mint-button {
       background-color: #df5430;
       color: #fff;
+    }
+  }
+  .mint-popup {
+    width: 100%;
+    img {
+      width: 90%;
     }
   }
 }
