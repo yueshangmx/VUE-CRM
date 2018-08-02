@@ -20,7 +20,11 @@
 
 
  1. 下载本项目到本地
- 2. npm install 安装依赖
- 3. npm run serve 启动本地开发
+ 2. 本地服务器地址在store.js中定义，将其修改为自己的服务器地址（本地或者远程）
+ 3. 将data目录复制到服务器跟目录
+ 4. 将db-crm.sql 备份恢复到数据库中
+ 5. 修改data目录下的connect.php中的数据库连接信息
+ 6. npm install 安装依赖
+ 7. npm run serve 启动本地开发
  
  
