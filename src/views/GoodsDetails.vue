@@ -80,8 +80,11 @@ export default {
       this.popupVisible.splice(index, 1, true);
     },
     edit() {
-      console.log(this.goodsinfo);
       this.$store.commit("updateGoodsinfo", this.goodsinfo);
+      this.$router.push({
+        name: "addgoods",
+        params: { toptitle: "编辑商品" }
+      });
     },
     del() {
       this.$http

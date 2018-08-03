@@ -26,7 +26,7 @@
         </ul>
       </mt-loadmore>
     </div>
-    <router-link to="/addGoods" class="gl-add" >
+    <router-link :to="{ name: 'addgoods', params: { 'toptitle': '添加商品' } }" class="gl-add" >
       <i class="iconfont icon-jiajianzujianjiahao"></i>
     </router-link>
   </div>

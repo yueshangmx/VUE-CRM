@@ -75,7 +75,6 @@ export default {
             )
             .then(
               function(res) {
-                console.log(res);
                 if (res.data.result) {
                   this.$toast({
                     message: "修改成功！",

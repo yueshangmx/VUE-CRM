@@ -46,7 +46,7 @@ export default {
   name: "addgoods",
   data() {
     return {
-      title: "添加商品",
+      title: "",
       goodsinfo: {
         id: "",
         name: "",
@@ -225,13 +225,13 @@ export default {
               )
               .then(
                 function(res) {
-                  console.log(res);
                   if (res.data.result) {
                     this.$toast({
                       message: "添加成功！",
                       iconClass: "iconfont icon-icon31"
                     });
-                    this.$router.go(0);
+                    this.$store.commit("updateGoodsinfo", "");
+                    this.$router.replace({ path: "/goods" });
                   } else {
                     this.$toast({
                       message: "添加失败！请重新提交",
@@ -261,6 +261,17 @@ export default {
     },
     goback() {
       this.$router.replace({ path: "/goods" });
+    },
+    syncgoods() {
+      let goods = this.$store.state.goodsinfo;
+      this.goodsinfo.id = goods.goods_id;
+      this.goodsinfo.name = goods.goods_name;
+      this.goodsinfo.jinjia = goods.goods_jinjia;
+      this.goodsinfo.price = goods.goods_price;
+      this.goodsinfo.inventory = goods.goods_inventory;
+      this.goodsinfo.fenlei = goods.goods_fenlei_id;
+      this.goodsinfo.beizhu = goods.goods_beizhu;
+      this.piclist = JSON.parse(goods.goods_litpic);
     }
   },
   created() {
@@ -268,6 +279,14 @@ export default {
       this.$store.commit("updateUserInfo");
     }
     this.getFenlei();
+    this.title = this.$route.params.toptitle;
+    if (this.$store.state.goodsinfo.goods_id) {
+      this.syncgoods();
+    }
+  },
+  beforeRouteLeave(to, from, next) {
+    this.$store.commit("updateGoodsinfo", {});
+    next();
   }
 };
 </script>
