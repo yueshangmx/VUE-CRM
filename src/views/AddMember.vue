@@ -26,16 +26,15 @@
           </select>
         </mt-field>
         <mt-field label="员工权限" :attr="{style:'display:none'}">
-          <select name="group" class="am-group" v-model="memberinfo.group">
-            <option value="2">管理员</option>
-            <option value="3">店长</option>
-            <option value="4">员工</option>
+          <select class="am-group" v-model="memberinfo.group">
+            <option v-for="item in grouplist" :key="item.group_id" :value="item.group_id">{{item.group_name}}</option>
           </select>
         </mt-field>
       </div>
-      <div class="am-part am-save">
-        <mt-button type="default" size="large" @click="saveMember">保存</mt-button>
-      </div>
+    </div>
+    <div class="am-bottom">
+      <mt-button type="default" size="small" @click="back">取消返回</mt-button>
+      <mt-button type="default" size="small" @click="saveMember">保存继续</mt-button>
     </div>
   </div>
 </template>
@@ -46,6 +45,7 @@ export default {
   data() {
     return {
       deptlist: [],
+      grouplist: [],
       memberinfo: {
         currenname: "",
         username: "",
@@ -107,25 +107,7 @@ export default {
     }
   },
   created() {
-    this.memberinfo.parent_id = JSON.parse(
-      sessionStorage.getItem("info")
-    ).user_id;
-    this.$http
-      .get(
-        this.$store.state.SERVER +
-          "/data/add_member.php?user_id=" +
-          this.memberinfo.parent_id
-      )
-      .then(
-        function(res) {
-          if (res) {
-            this.deptlist = res.data;
-            this.memberinfo.dept = res.data[0].dept_id;
-          } else {
-            this.$toast("服务器通信出错！");
-          }
-        }.bind(this)
-      );
+    this.reset();
   },
   methods: {
     saveMember() {
@@ -135,14 +117,14 @@ export default {
         this.memberinfo.password
       ) {
         if (
-          this.checkmemberinfo.cname == "success" &&
-          this.checkmemberinfo.uname == "success" &&
-          this.checkmemberinfo.pwd == "success"
+          this.checkmember.cname == "success" &&
+          this.checkmember.uname == "success" &&
+          this.checkmember.pwd == "success"
         ) {
           this.$http
             .post(
               this.$store.state.SERVER + "/data/add_member.php",
-              this.$Qs.stringify(this.member)
+              this.$Qs.stringify(this.memberinfo)
             )
             .then(
               function(res) {
@@ -172,6 +154,47 @@ export default {
           iconClass: "iconfont icon-cuowu"
         });
       }
+    },
+    back() {
+      this.$router.push({ path: "/member" });
+    },
+    reset() {
+      let that = this;
+      Object.keys(that.memberinfo).forEach(key => (that.memberinfo[key] = ""));
+      that.memberinfo.sex = 0;
+      if (!that.$store.state.userinfo.user_id) {
+        that.$store.commit("updateUserInfo");
+      }
+      that.memberinfo.parent_id = that.$store.state.userinfo.user_id;
+      that.$http
+        .get(
+          that.$store.state.SERVER +
+            "/data/add_member.php?state=0&parent_id=" +
+            that.memberinfo.parent_id
+        )
+        .then(function(res) {
+          if (res) {
+            that.deptlist = res.data;
+            that.memberinfo.dept = res.data[0].dept_id;
+          } else {
+            that.$toast("服务器通信出错！");
+          }
+        });
+      that.$http
+        .get(
+          that.$store.state.SERVER +
+            "/data/add_member.php?state=1&parent_id=" +
+            that.memberinfo.parent_id
+        )
+        .then(function(res) {
+          if (res) {
+            console.log(res);
+            that.grouplist = res.data;
+            that.memberinfo.group = res.data[res.data.length - 1].group_id;
+          } else {
+            that.$toast("服务器通信出错！");
+          }
+        });
     }
   }
 };
@@ -209,13 +232,21 @@ export default {
         }
       }
     }
-    .am-save {
-      width: 90%;
-      margin: 0 auto;
-      button {
-        background-color: #df5420;
-        color: #f2f2f2;
-      }
+  }
+  .am-bottom {
+    position: fixed;
+    bottom: 0;
+    border-top: 1px solid #aaa;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px 0;
+    background-color: #fff;
+    .mint-button {
+      background-color: #df5420;
+      color: #fff;
     }
   }
 }

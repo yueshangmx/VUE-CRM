@@ -1,5 +1,5 @@
 <template>
-  <div class="group">
+  <div class="dept">
     <div class="g-top">
       <mt-header title="部门设置">
         <router-link to="/member" slot="left">
@@ -10,17 +10,17 @@
     <div class="g-main">
       <mt-loadmore :top-method="loadTop" ref="loadmore">
         <ul class="g-list">
-          <li v-for="(item,index) in grouplist" :key="index" class="item-list">
+          <li v-for="(item,index) in deptlist" :key="index" class="item-list">
             <div class="g-lefr">{{item.dept_name}}</div>
             <div class="g-right">
-              <i class="iconfont icon-yijianfankui" @click="editGroup(item.dept_name,item.dept_id)"></i>
-              <i class="iconfont icon-delete" @click="deleteGroup(item.dept_id)"></i>
+              <i class="iconfont icon-yijianfankui" @click="editDept(item.dept_name,item.dept_id)"></i>
+              <i class="iconfont icon-delete" @click="deleteDept(item.dept_id)"></i>
             </div>
           </li>
         </ul>
       </mt-loadmore>
     </div>
-    <div class="g-add" @click="addGroup">
+    <div class="g-add" @click="addDept">
       <i class="iconfont icon-jiajianzujianjiahao"></i>
     </div>
   </div>
@@ -28,17 +28,17 @@
 
 <script>
 export default {
-  name: "group",
+  name: "dept",
   data() {
     return {
-      grouplist: []
+      deptlist: []
     };
   },
   methods: {
-    getGrouplist() {
+    getDeptlist() {
       this.$http
         .post(
-          this.$store.state.SERVER + "/data/group.php",
+          this.$store.state.SERVER + "/data/dept.php",
           this.$Qs.stringify({
             user_id: this.$store.state.userinfo.user_parent_id
           })
@@ -46,7 +46,7 @@ export default {
         .then(
           function(res) {
             if (res.data.length > 0) {
-              this.grouplist = res.data;
+              this.deptlist = res.data;
             } else {
               this.$toast({
                 message: "读取出错！",
@@ -57,14 +57,14 @@ export default {
         );
     },
     loadTop() {
-      this.getGrouplist();
+      this.getDeptlist();
       this.$refs.loadmore.onTopLoaded();
     },
-    editGroup(name, id) {
+    editDept(name, id) {
       this.$messagebox.prompt("确定将" + name + "更名吗？", "").then(data => {
         this.$http
           .post(
-            this.$store.state.SERVER + "/data/group.php",
+            this.$store.state.SERVER + "/data/dept.php",
             this.$Qs.stringify({
               user_id: this.$store.state.userinfo.user_id,
               dept_id: id,
@@ -78,7 +78,7 @@ export default {
                   message: "修改成功！",
                   iconClass: "iconfont icon-icon31"
                 });
-                this.getGrouplist();
+                this.getDeptlist();
               } else {
                 this.$toast({
                   message: "修改失败",
@@ -89,11 +89,11 @@ export default {
           );
       });
     },
-    deleteGroup(data) {
+    deleteDept(data) {
       this.$messagebox.confirm("确定删除此部门吗？").then(() => {
         this.$http
           .post(
-            this.$store.state.SERVER + "/data/group.php",
+            this.$store.state.SERVER + "/data/dept.php",
             this.$Qs.stringify({
               user_id: this.$store.state.userinfo.user_id,
               dept_id: data
@@ -106,7 +106,7 @@ export default {
                   message: "删除成功！",
                   iconClass: "iconfont icon-icon31"
                 });
-                this.getGrouplist();
+                this.getDeptlist();
               } else {
                 this.$toast({
                   message: "删除失败",
@@ -117,12 +117,12 @@ export default {
           );
       });
     },
-    addGroup() {
+    addDept() {
       this.$messagebox.prompt("请输入部门名称", "").then(data => {
         let new_name = data.value;
         this.$http
           .post(
-            this.$store.state.SERVER + "/data/group.php",
+            this.$store.state.SERVER + "/data/dept.php",
             this.$Qs.stringify({
               user_id: this.$store.state.userinfo.user_id,
               new_dept_name: new_name
@@ -135,7 +135,7 @@ export default {
                   message: "添加成功！",
                   iconClass: "iconfont icon-icon31"
                 });
-                this.getGrouplist();
+                this.getDeptlist();
               } else {
                 this.$toast({
                   message: "添加失败",
@@ -151,13 +151,13 @@ export default {
     if (!this.$store.state.userinfo.user_id) {
       this.$store.commit("updateUserInfo");
     }
-    this.getGrouplist();
+    this.getDeptlist();
   }
 };
 </script>
 
 <style scoped lang="less">
-.group {
+.dept {
   .g-top {
     .mint-header {
       background-color: #df5420;

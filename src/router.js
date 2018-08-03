@@ -13,7 +13,7 @@ import Cdetails from "./views/ConsumerDetails";
 import Mdetails from "./views/MemberDetails";
 import Addmember from "./views/AddMember";
 import Editmember from "./views/EditMember";
-import Group from "./views/Group";
+import Group from "./views/Dept";
 import Addgoods from "./views/AddGoods";
 import Setfenlei from "./views/Setgoodsfenlei";
 import Gdetails from "./views/GoodsDetails";

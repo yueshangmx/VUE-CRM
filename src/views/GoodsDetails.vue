@@ -87,27 +87,30 @@ export default {
       });
     },
     del() {
-      this.$http
-        .post(
-          this.$store.state.SERVER + "/data/goodsdetails.php",
-          this.$Qs.stringify({ goods_id: this.goodsinfo.goods_id })
-        )
-        .then(
-          function(res) {
-            if (res.data.result) {
-              this.$toast({
-                message: "成功删除！",
-                iconClass: "iconfont icon-icon31"
-              });
-              this.$router.replace({ path: "/goods" });
-            } else {
-              this.$toast({
-                message: "删除失败！",
-                iconClass: "iconfont icon-cuowu"
-              });
-            }
-          }.bind(this)
-        );
+      let that = this;
+      this.$messagebox
+        .confirm("确定删除商品：" + this.goodsinfo.goods_name)
+        .then(() => {
+          that.$http
+            .post(
+              that.$store.state.SERVER + "/data/goodsdetails.php",
+              that.$Qs.stringify({ goods_id: that.goodsinfo.goods_id })
+            )
+            .then(function(res) {
+              if (res.data.result) {
+                that.$toast({
+                  message: "成功删除！",
+                  iconClass: "iconfont icon-icon31"
+                });
+                that.$router.replace({ path: "/goods" });
+              } else {
+                that.$toast({
+                  message: "删除失败！",
+                  iconClass: "iconfont icon-cuowu"
+                });
+              }
+            });
+        });
     },
     getgoodsinfo() {
       this.$http

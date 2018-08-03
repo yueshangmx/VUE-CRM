@@ -13,12 +13,9 @@
             <div class="b-name">{{kehuinfo.kehu_name}}</div>
             <span class="b-v" v-if="kehuinfo.kehu_vip_id === '1'">普通会员</span>
             <span class="b-v" v-if="kehuinfo.kehu_vip_id === '2'">VIP会员</span>
-            |
+            <span>  | </span>
             <span class="b-n">卡号:{{kehuinfo.kehu_number}}</span>
           </div>
-        </div>
-        <div class="b-right">
-          <i class="iconfont icon-jiantouyou"></i>
         </div>
       </div>
     </div>
@@ -58,30 +55,33 @@ export default {
   },
   methods: {
     del() {
-      this.$http
-        .post(
-          this.$store.state.SERVER + "/data/consumerdetails.php",
-          this.$Qs.stringify({
-            state: 1,
-            id: this.$route.params.id
-          })
-        )
-        .then(
-          function(res) {
-            if (res.data.result) {
-              this.$toast({
-                message: "成功！",
-                iconClass: "iconfont icon-icon31"
-              });
-              this.$router.replace({ path: "/consumer" });
-            } else {
-              this.$toast({
-                message: "失败！",
-                iconClass: "iconfont icon-cuowu"
-              });
-            }
-          }.bind(this)
-        );
+      let that = this;
+      that.$messagebox
+        .confirm("确定删除客户：" + that.kehuinfo.kehu_name)
+        .then(function() {
+          that.$http
+            .post(
+              that.$store.state.SERVER + "/data/consumerdetails.php",
+              that.$Qs.stringify({
+                state: 1,
+                id: that.$route.params.id
+              })
+            )
+            .then(function(res) {
+              if (res.data.result) {
+                that.$toast({
+                  message: "成功！",
+                  iconClass: "iconfont icon-icon31"
+                });
+                that.$router.replace({ path: "/consumer" });
+              } else {
+                that.$toast({
+                  message: "失败！",
+                  iconClass: "iconfont icon-cuowu"
+                });
+              }
+            });
+        });
     }
   },
   created() {
@@ -123,24 +123,20 @@ export default {
         justify-content: space-between;
         i {
           background: #aaa;
-          height: 30px;
-          width: 30px;
+          height: 40px;
+          width: 40px;
           border-radius: 5px;
           font-size: 1.5rem;
-          line-height: 30px;
+          line-height: 40px;
           margin-right: 10px;
         }
         .n-v-n {
           font-size: 12px;
           text-align: left;
           .b-name {
-            font-size: 14px;
+            font-size: 16px;
+            padding-bottom: 2px;
           }
-        }
-      }
-      .b-right {
-        i {
-          font-size: 12px;
         }
       }
     }
