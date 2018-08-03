@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <mt-header :title="username">
+    <mt-header :title="title">
       <!--<mt-button class="iconfont icon-shuaxin" slot="right"></mt-button>-->
     </mt-header>
   </div>
@@ -9,6 +9,7 @@
 <script>
 export default {
   name: "Head",
+  props: ["title"],
   data() {
     return {
       username: ""
@@ -17,12 +18,6 @@ export default {
   created() {
     if (!this.$store.state.userinfo.user_id) {
       this.$store.commit("updateUserInfo");
-    }
-    let userinfo = this.$store.state.userinfo;
-    if (!userinfo || !userinfo.user_name) {
-      this.$router.replace({ path: "/login" });
-    } else {
-      this.username = userinfo.user_store_name.toUpperCase();
     }
   }
 };

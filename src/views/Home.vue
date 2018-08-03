@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Head />
+    <Head :title="this.$store.state.userinfo.user_currenname" />
     <Main />
     <Foot />
   </div>

@@ -226,7 +226,7 @@ export default {
     }
   },
   created() {
-    if (!this.$store.state.kehuinfo.user_id) {
+    if (!this.$store.state.userinfo.user_id) {
       this.$store.commit("updateUserInfo");
     }
     this.getNumber();
