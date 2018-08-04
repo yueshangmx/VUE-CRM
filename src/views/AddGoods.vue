@@ -52,7 +52,7 @@ export default {
         name: "",
         jinjia: "",
         price: "",
-        inventory: "0",
+        inventory: "",
         fenlei: "1",
         beizhu: "",
         imgarr: []
@@ -64,9 +64,13 @@ export default {
         inventory: ""
       },
       piclist: [],
-      picflag: true,
       fenleilist: []
     };
+  },
+  computed: {
+    picflag: function() {
+      return this.piclist.length < 5;
+    }
   },
   watch: {
     piclist: {
@@ -171,7 +175,6 @@ export default {
             for (let index in that.piclist) {
               that.piclist[index].isshow = true;
             }
-            that.picflag = that.piclist.length < 5;
           } else {
             if (!res.data.result) {
               that.$toast({
@@ -183,7 +186,6 @@ export default {
               for (let index in that.piclist) {
                 that.piclist[index].isshow = true;
               }
-              that.picflag = that.piclist.length < 5;
             }
           }
         });
@@ -227,14 +229,14 @@ export default {
                 function(res) {
                   if (res.data.result) {
                     this.$toast({
-                      message: "成功！",
+                      message: "操作成功！",
                       iconClass: "iconfont icon-icon31"
                     });
                     this.$store.commit("updateGoodsinfo", "");
                     this.$router.replace({ path: "/goods" });
                   } else {
                     this.$toast({
-                      message: "失败！请重新提交",
+                      message: "操作失败！请重新提交",
                       iconClass: "iconfont icon-cuowu"
                     });
                   }
@@ -272,7 +274,6 @@ export default {
       this.goodsinfo.fenlei = goods.goods_fenlei_id;
       this.goodsinfo.beizhu = goods.goods_beizhu;
       this.piclist = JSON.parse(goods.goods_litpic);
-      this.picflag = this.piclist < 5 ? true : false;
     }
   },
   created() {

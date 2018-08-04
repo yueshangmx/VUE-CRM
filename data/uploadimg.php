@@ -24,7 +24,7 @@ if ( $goods_id ) {
 	}
 } else {
 	$sign   = time();
-	$sql    = "INSERT INTO `goods` VALUES(NULL,'','','','',1,'','$litpic',$parent_id,$user_id,$sign)";
+	$sql    = "INSERT INTO `goods` VALUES(NULL,'',1,'','',0,'','$litpic',$parent_id,$user_id,$sign)";
 	$result = mysqli_query( $con, $sql );
 	if ( $result ) {
 		$sql = "SELECT goods_id FROM `goods` WHERE goods_sign=$sign LIMIT 1";
