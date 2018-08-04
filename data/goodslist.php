@@ -23,5 +23,6 @@ if($result->num_rows>0) {
 		"result" => false
 	);
 }
-
 echo json_encode($res);
+$sql2 = "DELETE FROM `goods` WHERE goods_name=''";
+mysqli_query($con,$sql2);

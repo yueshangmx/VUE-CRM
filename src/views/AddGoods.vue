@@ -8,6 +8,7 @@
       </mt-header>
     </div>
     <div class="ag-main">
+      <div class="tips" v-if="this.$store.state.goodsinfo.goods_id">图片列表为实时保存</div>
       <ul class="ag-pic">
         <li class="pic-list" v-for="(item,index) in piclist" :key="index" v-if="item.isshow">
           <img :src="item.src" alt="" @click="removepic" :data-index="index">
@@ -306,6 +307,13 @@ export default {
     }
   }
   .ag-main {
+    .tips {
+      font-size: 12px;
+      color: #999;
+      &:before {
+        content: "！";
+      }
+    }
     .ag-pic {
       list-style: none;
       height: 80px;
