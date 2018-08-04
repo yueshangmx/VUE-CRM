@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    version: 0.2,
     SERVER: "http://vue.dev.com",
     userinfo: {},
     memberinfo: {},
