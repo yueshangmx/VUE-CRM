@@ -39,7 +39,7 @@ export default {
       allLoaded: false,
       list: [], //存放返回的客户数据
       start: 0, //数据开始的id
-      count: 10, //一次获取的数据量
+      count: 15, //一次获取的数据量
       user_id: ""
     };
   },

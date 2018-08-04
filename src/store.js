@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    version: 0.2,
+    version: 0.5,
     SERVER: "http://vue.dev.com",
     userinfo: {},
     memberinfo: {},
@@ -24,6 +24,7 @@ export default new Vuex.Store({
     LOGIN(state, data) {
       this.state.userinfo = data;
       sessionStorage.setItem("info", JSON.stringify(data));
+      sessionStorage.setItem("login", true);
     }
   },
   actions: {}

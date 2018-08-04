@@ -39,14 +39,22 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+  mounted() {
+    if (!(sessionStorage.getItem("login") == "true")) {
+      this.$router.replace({ path: "/login" });
+    }
+  }
 }).$mount("#app");
 
 router.beforeEach((to, from, next) => {
-  let info = JSON.parse(sessionStorage.getItem("info"));
-  if (!info && to.path != "/login") {
-    next({ path: "/login" });
-  } else {
+  if (to.path == "/login") {
     next();
+  } else {
+    if (sessionStorage.getItem("login") == "true") {
+      next();
+    } else {
+      next({ path: "/login" });
+    }
   }
 });

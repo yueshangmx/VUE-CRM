@@ -43,7 +43,8 @@ export default {
   },
   methods: {
     logout() {
-      window.sessionStorage.removeItem("info");
+      sessionStorage.removeItem("info");
+      sessionStorage.removeItem("login");
       this.$Global.delCookie("token");
       this.$router.replace({ path: "/login" });
     },

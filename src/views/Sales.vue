@@ -8,27 +8,29 @@
           <span class="time">{{current_time}}</span>
           <span class="sales-money">{{"销售总额："+sales_money}}</span>
         </div>
-        <ul class="sales-list">
-          <li v-for="(item,index) in list" :key="index">
-            <router-link :to="'/salesdetails/'+item.id">
-              <div class="item-left">
-                <div class="img">
-                  <img :src="item.goods_litpic | imgurl" alt="">
-                </div>
-                <div class="info">
-                  <div class="s-name">{{item.goods_name}}</div>
-                  <div class="s-info">
-                    <span>{{item.sales_time | time}}</span>
-                    <span class="line">|</span>
-                    <span>{{item.kehu_name}}</span>
-                    <i>{{"x "+item.sales_number}}</i>
+        <mt-loadmore :top-method="loadTop" :bottom-method="loadBottom" :bottom-all-loaded="allLoaded" ref="loadmore" max-distance="90">
+          <ul class="sales-list">
+            <li v-for="(item,index) in list" :key="index">
+              <router-link :to="'/salesdetails/'+item.id">
+                <div class="item-left">
+                  <div class="img">
+                    <img :src="item.goods_litpic | imgurl" alt="">
+                  </div>
+                  <div class="info">
+                    <div class="s-name">{{item.goods_name}}</div>
+                    <div class="s-info">
+                      <span>{{item.sales_time | time}}</span>
+                      <span class="line">|</span>
+                      <span>{{item.kehu_name}}</span>
+                      <i>{{"x "+item.sales_number}}</i>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="item-right">{{item.sales_price}}</div>
-            </router-link>
-          </li>
-        </ul>
+                <div class="item-right">{{item.sales_price}}</div>
+              </router-link>
+            </li>
+          </ul>
+        </mt-loadmore>
       </div>
     </div>
     <Foot />
@@ -46,14 +48,17 @@ export default {
   },
   data() {
     return {
-      list: []
+      list: [],
+      allLoaded: false
     };
   },
   computed: {
     current_time: function() {
       let now = new Date();
       // eslint-disable-next-line
-      return now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
+      let mm = (now.getMonth()+1) < 10 ? "0"+(now.getMonth()+1) : now.getMonth()+1;
+      let dd = now.getDate() < 10 ? "0" + now.getDate() : now.getDate();
+      return now.getFullYear() + "-" + mm + "-" + dd;
     },
     sales_money: function() {
       let total = 0;
@@ -86,8 +91,19 @@ export default {
         .then(
           function(res) {
             this.list = res.data;
+            if (res.data.length < 15) {
+              this.allLoaded = true;
+            }
           }.bind(this)
         );
+    },
+    loadTop() {
+      this.getSalesList();
+      this.$refs.loadmore.onTopLoaded();
+    },
+    loadBottom() {
+      this.getSalesList();
+      this.$refs.loadmore.onBottomLoaded();
     }
   },
   created() {
