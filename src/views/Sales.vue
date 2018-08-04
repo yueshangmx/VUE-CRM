@@ -19,9 +19,11 @@
                   <div class="info">
                     <div class="s-name">{{item.goods_name}}</div>
                     <div class="s-info">
-                      <span>{{item.sales_time | time}}</span>
-                      <span class="line">|</span>
-                      <span>{{item.kehu_name}}</span>
+                      <div>
+                        <span>{{item.sales_time | time}}</span>
+                        <span class="line">|</span>
+                        <span>{{item.kehu_name}}</span>
+                      </div>
                       <i>{{"x "+item.sales_number}}</i>
                     </div>
                   </div>
@@ -120,7 +122,9 @@ export default {
   .s-main {
     .s-top {
       height: 50px;
-      background-color: #fff;
+      background-color: #df5420;
+      border-top: 1px solid #df7430;
+      color: #fff;
     }
     .s-list {
       .list-top {
@@ -156,7 +160,7 @@ export default {
                 img {
                   width: 40px;
                   height: 40px;
-                  border: 1px solid lighten(#df5420, 20%);
+                  border: 1px solid #ccc;
                   border-radius: 6px;
                 }
               }
@@ -173,14 +177,12 @@ export default {
                   flex-direction: row;
                   align-items: center;
                   justify-content: flex-start;
-                  .line {
-                    padding-left: 5px;
-                    padding-right: 5px;
-                  }
-                  span {
-                    background-color: lighten(#df5420, 40%);
-                    font-size: 12px;
-                    height: 16px;
+                  > div {
+                    background-color: #efefef;
+                    .line {
+                      padding-left: 5px;
+                      padding-right: 5px;
+                    }
                   }
                   i {
                     padding-left: 5px;
