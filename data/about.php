@@ -20,10 +20,9 @@ switch ($state) {
 }
 $result = mysqli_query( $con, $sql );
 if ( $result) {
-	$res = [];
-	while ( ( $row = mysqli_fetch_assoc( $result ) ) != null ) {
-		$res[] = $row;
-	}
+	$res = array(
+		"result" => $result->num_rows
+	);
 } else {
 	$res =array(
 		"result" => false
