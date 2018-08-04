@@ -110,5 +110,9 @@ export default {
     color: #fff;
     background-color: #df5420;
   }
+  .nav-about {
+    color: #df5420 !important;
+    font-weight: bold;
+  }
 }
 </style>
